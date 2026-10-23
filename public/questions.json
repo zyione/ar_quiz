@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "category": "English Grammar",
+    "difficulty": "Beginner",
+    "question": "You should ___________ some vitamins and get some rest.",
+    "options": {
+      "A": "has",
+      "B": "having",
+      "C": "take",
+      "D": "took"
+    },
+    "correctAnswer": "C",
+    "explanation": "After modal verbs like 'should', we use the base form of the verb ('take')."
+  },
+  {
+    "id": 2,
+    "category": "English Grammar",
+    "difficulty": "Beginner",
+    "question": "She ___________ to school by bus every morning.",
+    "options": {
+      "A": "goes",
+      "B": "go",
+      "C": "going",
+      "D": "gone"
+    },
+    "correctAnswer": "A",
+    "explanation": "Third-person singular subjects ('she') take verbs ending in -s or -es in the simple present tense ('goes')."
+  },
+  {
+    "id": 3,
+    "category": "English Grammar",
+    "difficulty": "Intermediate",
+    "question": "If it rains tomorrow, we ___________ the picnic in the park.",
+    "options": {
+      "A": "cancelled",
+      "B": "will cancel",
+      "C": "cancelling",
+      "D": "had cancelled"
+    },
+    "correctAnswer": "B",
+    "explanation": "In a first conditional sentence (real possibility), the main clause uses 'will' + base verb."
+  },
+  {
+    "id": 4,
+    "category": "English Grammar",
+    "difficulty": "Intermediate",
+    "question": "Neither of the students ___________ ready for the presentation.",
+    "options": {
+      "A": "were",
+      "B": "are",
+      "C": "is",
+      "D": "being"
+    },
+    "correctAnswer": "C",
+    "explanation": "'Neither' is singular and grammatically takes a singular verb ('is')."
+  },
+  {
+    "id": 5,
+    "category": "English Grammar",
+    "difficulty": "Intermediate",
+    "question": "By next year, they ___________ the new bridge across the river.",
+    "options": {
+      "A": "finish",
+      "B": "will finish",
+      "C": "will have finished",
+      "D": "have finished"
+    },
+    "correctAnswer": "C",
+    "explanation": "'By next year' signals a future completed action, requiring the future perfect tense ('will have finished')."
+  },
+  {
+    "id": 6,
+    "category": "General Science",
+    "difficulty": "Beginner",
+    "question": "What gas do plants primarily absorb during photosynthesis?",
+    "options": {
+      "A": "Oxygen",
+      "B": "Carbon Dioxide",
+      "C": "Nitrogen",
+      "D": "Hydrogen"
+    },
+    "correctAnswer": "B",
+    "explanation": "Plants take in carbon dioxide and water to produce glucose and oxygen using sunlight."
+  },
+  {
+    "id": 7,
+    "category": "AI Literacy",
+    "difficulty": "Beginner",
+    "question": "When an AI generates convincing information that is factually wrong, it is called a:",
+    "options": {
+      "A": "Bug",
+      "B": "Glitch",
+      "C": "Hallucination",
+      "D": "Overclock"
+    },
+    "correctAnswer": "C",
+    "explanation": "AI hallucination refers to instances where generative models produce confident but incorrect or fabricated facts."
+  },
+  {
+    "id": 8,
+    "category": "AI Literacy",
+    "difficulty": "Intermediate",
+    "question": "Which of the following is considered safe to paste into public AI chatbots?",
+    "options": {
+      "A": "Company customer passwords",
+      "B": "Publicly published articles",
+      "C": "Private financial statements",
+      "D": "Employee personal data"
+    },
+    "correctAnswer": "B",
+    "explanation": "Only public, non-confidential information should be pasted into publicly hosted AI chatbots."
+  }
+]
