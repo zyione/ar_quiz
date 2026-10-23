@@ -1,282 +1,562 @@
 [
   {
     "id": 1,
-    "category": "Science & Nature",
+    "category": "AI Fundamentals",
     "difficulty": "Beginner",
-    "question": "What is the hardest natural substance found on Earth?",
+    "question": "What is the most appropriate way to describe generative AI to a business audience?",
     "options": {
-      "A": "Quartz",
-      "B": "Titanium",
-      "C": "Granite",
-      "D": "Diamond"
+      "A": "A system that guarantees correct answers",
+      "B": "A system that generates new content based on patterns learned from data",
+      "C": "A database that only retrieves approved documents",
+      "D": "A replacement for all human decision-making"
     },
-    "correctAnswer": "D",
-    "explanation": "Diamond is the hardest naturally occurring substance on Earth, scoring a maximum 10 on the Mohs hardness scale."
+    "correctAnswer": "B",
+    "explanation": "Generative AI creates content from learned patterns. Outputs can still be wrong or incomplete."
   },
   {
     "id": 2,
-    "category": "World Geography",
+    "category": "AI Fundamentals",
     "difficulty": "Beginner",
-    "question": "Which is the largest and deepest ocean on Earth?",
+    "question": "Which statement best reflects a responsible expectation of AI at work?",
     "options": {
-      "A": "Atlantic Ocean",
-      "B": "Pacific Ocean",
-      "C": "Indian Ocean",
-      "D": "Arctic Ocean"
+      "A": "AI outputs should be treated as drafts or recommendations that may need review",
+      "B": "AI is objective because it is software",
+      "C": "AI-generated content is always more accurate than human work",
+      "D": "AI removes the need for business expertise"
     },
-    "correctAnswer": "B",
-    "explanation": "The Pacific Ocean covers over 60 million square miles, making it larger than all of Earth's land areas combined."
+    "correctAnswer": "A",
+    "explanation": "AI can speed up work, but people must verify accuracy and suitability."
   },
   {
     "id": 3,
-    "category": "Animals & Wildlife",
+    "category": "AI Fundamentals",
     "difficulty": "Beginner",
-    "question": "What is the fastest land animal in the world?",
+    "question": "What does an AI hallucination mean in practice?",
     "options": {
-      "A": "Cheetah",
-      "B": "Pronghorn Antelope",
-      "C": "Lion",
-      "D": "Greyhound"
+      "A": "The model refuses every request",
+      "B": "The model produces an answer that sounds convincing but is false or unsupported",
+      "C": "The model encrypts information",
+      "D": "The model asks for clarification"
     },
-    "correctAnswer": "A",
-    "explanation": "Cheetahs can accelerate from 0 to 60 mph in under 3 seconds and reach top sprint speeds of around 70 mph (112 km/h)."
+    "correctAnswer": "B",
+    "explanation": "Hallucinations are convincing but false or unsupported AI outputs. Check important claims."
   },
   {
     "id": 4,
-    "category": "Astronomy & Space",
+    "category": "AI Fundamentals",
     "difficulty": "Beginner",
-    "question": "Which planet in our solar system is known as the 'Red Planet'?",
+    "question": "Which task is generally a suitable starting point for workplace AI assistance?",
     "options": {
-      "A": "Venus",
-      "B": "Jupiter",
-      "C": "Mars",
-      "D": "Mercury"
+      "A": "Making an unreviewed final decision on a customer claim",
+      "B": "Drafting a first version of an internal announcement for review",
+      "C": "Approving a high-value payment automatically without controls",
+      "D": "Sending confidential customer records to a public chatbot"
     },
-    "correctAnswer": "C",
-    "explanation": "Mars gets its distinctive reddish appearance from iron oxide (rust) widespread across its surface."
+    "correctAnswer": "B",
+    "explanation": "Low-risk drafts are useful starting points; high-impact actions need stronger controls."
   },
   {
     "id": 5,
-    "category": "Art & History",
-    "difficulty": "Beginner",
-    "question": "Who painted the world-famous masterpiece, the Mona Lisa?",
+    "category": "AI Fundamentals",
+    "difficulty": "Intermediate",
+    "question": "Why can two AI tools give different answers to the same question?",
     "options": {
-      "A": "Vincent van Gogh",
-      "B": "Leonardo da Vinci",
-      "C": "Pablo Picasso",
-      "D": "Michelangelo"
+      "A": "All AI tools use the same model and data",
+      "B": "They may use different models, instructions, context, data, and settings",
+      "C": "One answer must be fraudulent",
+      "D": "AI answers are randomly selected from a fixed list"
     },
     "correctAnswer": "B",
-    "explanation": "Leonardo da Vinci painted the Mona Lisa in Florence during the Italian Renaissance in the early 16th century."
+    "explanation": "Models, instructions, context, data, and settings can change the answer."
   },
   {
     "id": 6,
-    "category": "Human Biology",
-    "difficulty": "Intermediate",
-    "question": "What is the largest organ of the human body?",
+    "category": "Effective Prompting",
+    "difficulty": "Beginner",
+    "question": "Which prompt is most likely to produce a useful business deliverable?",
     "options": {
-      "A": "Brain",
-      "B": "Liver",
-      "C": "Lungs",
-      "D": "Skin"
+      "A": "Write something about customers",
+      "B": "Help me",
+      "C": "Draft a one-page executive summary for department leaders using the supplied figures; separate facts from assumptions and flag missing data",
+      "D": "Give me the best answer"
     },
-    "correctAnswer": "D",
-    "explanation": "The skin is the body's largest organ, accounting for approximately 15% of total adult body weight."
+    "correctAnswer": "C",
+    "explanation": "Good prompts define the task, audience, context, format, and quality checks."
   },
   {
     "id": 7,
-    "category": "Food & Culture",
-    "difficulty": "Beginner",
-    "question": "What is the primary ingredient used to make traditional guacamole?",
+    "category": "Effective Prompting",
+    "difficulty": "Intermediate",
+    "question": "What should you do when an AI response is too broad for your business need?",
     "options": {
-      "A": "Cucumber",
-      "B": "Avocado",
-      "C": "Green Apple",
-      "D": "Edamame"
+      "A": "Accept it because the first answer is usually best",
+      "B": "Add relevant context, constraints, audience, and a clear output format",
+      "C": "Provide confidential information to force a better answer",
+      "D": "Ask the model to guarantee accuracy"
     },
     "correctAnswer": "B",
-    "explanation": "Guacamole is a traditional Mexican dish made predominantly with mashed ripe avocados, lime juice, salt, and cilantro."
+    "explanation": "Add context and constraints, while sharing only information approved for that tool."
   },
   {
     "id": 8,
-    "category": "History & Inventions",
+    "category": "Effective Prompting",
     "difficulty": "Intermediate",
-    "question": "In which year did Apollo 11 astronauts first land on the Moon?",
+    "question": "You need AI to analyze a spreadsheet. What is a good instruction to include?",
     "options": {
-      "A": "1965",
-      "B": "1969",
-      "C": "1972",
-      "D": "1959"
+      "A": "Make the results look positive",
+      "B": "Identify the relevant metrics, explain assumptions, flag missing data, and avoid inferring unsupported conclusions",
+      "C": "Ignore any data that contradicts the desired outcome",
+      "D": "Create plausible numbers for empty cells"
     },
     "correctAnswer": "B",
-    "explanation": "Apollo 11 astronauts Neil Armstrong and Buzz Aldrin landed on the lunar surface on July 20, 1969."
+    "explanation": "Ask AI to explain assumptions, flag gaps, and avoid unsupported conclusions."
   },
   {
     "id": 9,
-    "category": "World Landmarks",
-    "difficulty": "Beginner",
-    "question": "Which iconic ancient wonder is located in Giza, Egypt?",
+    "category": "Effective Prompting",
+    "difficulty": "Intermediate",
+    "question": "How should you use AI when drafting a policy summary for executives?",
     "options": {
-      "A": "The Colosseum",
-      "B": "The Great Pyramid",
-      "C": "The Parthenon",
-      "D": "Petra"
+      "A": "Ask for a concise summary, key implications, open questions, and source references where available; then verify them",
+      "B": "Ask it to invent citations if sources are missing",
+      "C": "Use the response without reading it",
+      "D": "Ask it to remove all limitations"
     },
-    "correctAnswer": "B",
-    "explanation": "The Great Pyramid of Giza is the oldest and only largely intact wonder of the ancient world."
+    "correctAnswer": "A",
+    "explanation": "Use structured summaries, then verify claims and references against original sources."
   },
   {
     "id": 10,
-    "category": "Science & Chemistry",
+    "category": "Effective Prompting",
     "difficulty": "Intermediate",
-    "question": "What is the chemical symbol for Gold on the periodic table?",
+    "question": "What is the best response when the AI lacks enough information to answer a business question?",
     "options": {
-      "A": "Au",
-      "B": "Ag",
-      "C": "Gd",
-      "D": "Fe"
+      "A": "Tell it to guess confidently",
+      "B": "Ask it to identify what information is missing and distinguish facts from assumptions",
+      "C": "Use the first answer as a confirmed fact",
+      "D": "Remove the context so it has more freedom"
     },
-    "correctAnswer": "A",
-    "explanation": "The symbol 'Au' originates from the Latin word 'aurum', meaning 'shining dawn' or gold."
+    "correctAnswer": "B",
+    "explanation": "Ask AI to identify missing information and separate facts from assumptions."
   },
   {
     "id": 11,
-    "category": "Literature & Pop Culture",
+    "category": "Data Privacy",
     "difficulty": "Beginner",
-    "question": "How many books are in the original Harry Potter series by J.K. Rowling?",
+    "question": "Before entering company information into an AI tool, what should you check first?",
     "options": {
-      "A": "5",
-      "B": "6",
-      "C": "7",
-      "D": "8"
+      "A": "Whether the tool has an attractive interface",
+      "B": "Whether the tool is approved for that data type and the intended use complies with company policy",
+      "C": "Whether the prompt is short",
+      "D": "Whether colleagues use the tool personally"
     },
-    "correctAnswer": "C",
-    "explanation": "The original fantasy series spans 7 books, starting with 'The Sorcerer's Stone' through 'The Deathly Hallows'."
+    "correctAnswer": "B",
+    "explanation": "Check tool approval, data classification, privacy, and permitted use first."
   },
   {
     "id": 12,
-    "category": "Science & Botany",
+    "category": "Data Privacy",
     "difficulty": "Beginner",
-    "question": "What gas do green plants absorb from the atmosphere for photosynthesis?",
+    "question": "Which information should generally not be entered into a public AI tool unless explicitly approved and protected under policy?",
     "options": {
-      "A": "Oxygen",
-      "B": "Carbon Dioxide",
-      "C": "Nitrogen",
-      "D": "Helium"
+      "A": "Publicly available company address",
+      "B": "A generic request to improve an email greeting",
+      "C": "Identifiable customer records, credentials, or confidential business information",
+      "D": "A publicly published product brochure"
     },
-    "correctAnswer": "B",
-    "explanation": "During photosynthesis, plants take in carbon dioxide and water, converting them into glucose and oxygen with sunlight."
+    "correctAnswer": "C",
+    "explanation": "Do not enter personal, credential, or confidential data into unapproved tools."
   },
   {
     "id": 13,
-    "category": "World Geography",
+    "category": "Data Privacy",
     "difficulty": "Intermediate",
-    "question": "Which continent contains the largest number of independent countries?",
+    "question": "An AI tool asks you to upload an entire customer file, but you only need a summary of trends. What should you do?",
     "options": {
-      "A": "Asia",
-      "B": "Europe",
-      "C": "South America",
-      "D": "Africa"
+      "A": "Upload the full file to save time",
+      "B": "Use an approved workflow and minimize or de-identify data where appropriate",
+      "C": "Email the file to your personal account first",
+      "D": "Upload it and delete it later without checking retention"
     },
-    "correctAnswer": "D",
-    "explanation": "Africa has 54 fully recognized sovereign nations, more than any other continent."
+    "correctAnswer": "B",
+    "explanation": "Use approved workflows and only the data needed for the task."
   },
   {
     "id": 14,
-    "category": "Music & Instruments",
+    "category": "Data Privacy",
     "difficulty": "Intermediate",
-    "question": "How many keys does a standard acoustic grand piano have?",
+    "question": "Why is it important to understand an AI service's retention and training settings?",
     "options": {
-      "A": "88",
-      "B": "76",
-      "C": "64",
-      "D": "100"
+      "A": "They determine whether the service uses a colorful interface",
+      "B": "They can affect how submitted information is stored, reviewed, or used to improve services",
+      "C": "They guarantee the model is always accurate",
+      "D": "They replace the need for access controls"
     },
-    "correctAnswer": "A",
-    "explanation": "A standard piano features 88 keys: 52 white keys for natural notes and 36 black keys for accidentals."
+    "correctAnswer": "B",
+    "explanation": "Retention and training settings affect how submitted information may be handled."
   },
   {
     "id": 15,
-    "category": "Animals & Wildlife",
-    "difficulty": "Beginner",
-    "question": "Which is the only known bird capable of flying backwards?",
+    "category": "Data Privacy",
+    "difficulty": "Intermediate",
+    "question": "You accidentally paste confidential information into an unapproved AI tool. What is the best next step?",
     "options": {
-      "A": "Hummingbird",
-      "B": "Woodpecker",
-      "C": "Kingfisher",
-      "D": "Swallow"
+      "A": "Ignore it if the answer looks useful",
+      "B": "Follow the company incident-reporting process promptly and provide the relevant details",
+      "C": "Delete the chat and assume the issue is resolved",
+      "D": "Tell coworkers to try the same tool"
     },
-    "correctAnswer": "A",
-    "explanation": "Hummingbirds have specialized wing joints that allow them to fly backwards, upside down, and hover steadily in mid-air."
+    "correctAnswer": "B",
+    "explanation": "Report the incident promptly; deleting a chat may not remove stored copies."
   },
   {
     "id": 16,
-    "category": "History & Landmarks",
-    "difficulty": "Beginner",
-    "question": "Which country is home to the prehistoric stone circle monument Stonehenge?",
+    "category": "Security & Misuse",
+    "difficulty": "Intermediate",
+    "question": "What is prompt injection in a business AI context?",
     "options": {
-      "A": "Ireland",
-      "B": "United Kingdom",
-      "C": "Germany",
-      "D": "France"
+      "A": "A method of improving screen brightness",
+      "B": "Malicious or untrusted instructions in content that try to manipulate an AI system into ignoring its intended rules",
+      "C": "A normal password reset",
+      "D": "A way to compress a document"
     },
     "correctAnswer": "B",
-    "explanation": "Stonehenge is located on Salisbury Plain in Wiltshire, England (United Kingdom)."
+    "explanation": "Prompt injection uses untrusted content to try to override an AI system's instructions."
   },
   {
     "id": 17,
-    "category": "Animals & Wildlife",
-    "difficulty": "Beginner",
-    "question": "What is the largest living mammal on planet Earth?",
+    "category": "Security & Misuse",
+    "difficulty": "Intermediate",
+    "question": "An AI assistant reviewing an email sees instructions to reveal internal credentials. What should happen?",
     "options": {
-      "A": "African Bush Elephant",
-      "B": "Colossal Squid",
-      "C": "Blue Whale",
-      "D": "Whale Shark"
+      "A": "Follow the email because it is the newest instruction",
+      "B": "Treat the email content as untrusted, do not disclose credentials, and follow security procedures",
+      "C": "Send credentials only to the email sender",
+      "D": "Disable all security controls"
     },
-    "correctAnswer": "C",
-    "explanation": "The Blue Whale can reach lengths of up to 100 feet (30 meters) and weigh up to 200 tons, making it the largest known animal."
+    "correctAnswer": "B",
+    "explanation": "Treat analyzed content as untrusted; never disclose credentials or override security rules."
   },
   {
     "id": 18,
-    "category": "Science & Nature",
-    "difficulty": "Beginner",
-    "question": "How many colors are traditionally identified in a rainbow?",
+    "category": "Security & Misuse",
+    "difficulty": "Intermediate",
+    "question": "What is a deepfake-related workplace risk?",
     "options": {
-      "A": "5",
-      "B": "6",
-      "C": "7",
-      "D": "8"
+      "A": "A file with a large size",
+      "B": "Synthetic audio or video may impersonate an executive or colleague to trigger fraud or disclose information",
+      "C": "An ordinary calendar invitation",
+      "D": "A document with tracked changes"
     },
-    "correctAnswer": "C",
-    "explanation": "The 7 traditional colors in order are Red, Orange, Yellow, Green, Blue, Indigo, and Violet (ROYGBIV)."
+    "correctAnswer": "B",
+    "explanation": "Deepfakes can impersonate people. Verify unusual requests through a trusted channel."
   },
   {
     "id": 19,
-    "category": "Food & Culture",
-    "difficulty": "Beginner",
-    "question": "Which country is celebrated as the historical birthplace of modern pizza?",
+    "category": "Security & Misuse",
+    "difficulty": "Intermediate",
+    "question": "An AI-generated message requests an urgent bank-account change from a supplier. What is the safest action?",
     "options": {
-      "A": "Greece",
-      "B": "Spain",
-      "C": "France",
-      "D": "Italy"
+      "A": "Process it immediately because it sounds professional",
+      "B": "Verify the request using established supplier verification procedures and a known contact channel",
+      "C": "Ask the AI if the email is legitimate and rely only on its answer",
+      "D": "Reply with bank details to confirm identity"
     },
-    "correctAnswer": "D",
-    "explanation": "Modern pizza with tomato and mozzarella originated in Naples, Italy, in the late 18th and 19th centuries."
+    "correctAnswer": "B",
+    "explanation": "Verify payment or account changes using established procedures and known contacts."
   },
   {
     "id": 20,
-    "category": "Sports & Games",
-    "difficulty": "Beginner",
-    "question": "How many interlocking rings are featured on the official Olympic flag?",
+    "category": "Security & Misuse",
+    "difficulty": "Intermediate",
+    "question": "Why should employees avoid pasting passwords, API keys, or access tokens into AI prompts?",
     "options": {
-      "A": "5",
-      "B": "4",
-      "C": "6",
-      "D": "7"
+      "A": "They make the prompt too long",
+      "B": "They may expose credentials to a service, logs, or unintended recipients",
+      "C": "AI cannot read text strings",
+      "D": "Credentials are not considered sensitive"
     },
-    "correctAnswer": "A",
-    "explanation": "The 5 interlocking rings represent the five inhabited continents united in friendly competition by Olympism."
+    "correctAnswer": "B",
+    "explanation": "Never put passwords, keys, or tokens into prompts or shared conversations."
+  },
+  {
+    "id": 21,
+    "category": "Accuracy & Verification",
+    "difficulty": "Beginner",
+    "question": "AI produces a statistic for a leadership presentation but gives no source. What should you do?",
+    "options": {
+      "A": "Use it if it sounds reasonable",
+      "B": "Verify it against a reliable source or the underlying data before presenting it as fact",
+      "C": "Add a decimal place to make it precise",
+      "D": "Attribute it to AI and assume that is sufficient"
+    },
+    "correctAnswer": "B",
+    "explanation": "Verify statistics against reliable sources or underlying data before presenting them."
+  },
+  {
+    "id": 22,
+    "category": "Accuracy & Verification",
+    "difficulty": "Intermediate",
+    "question": "What is a sound way to use AI for regulatory or policy research?",
+    "options": {
+      "A": "Ask for a conclusion and skip the source material",
+      "B": "Use it to organize questions and summarize material, then verify conclusions against current authoritative documents and qualified advice where needed",
+      "C": "Rely on old model knowledge for current requirements",
+      "D": "Use whichever answer is most convenient"
+    },
+    "correctAnswer": "B",
+    "explanation": "Confirm current requirements against authoritative documents and qualified advice."
+  },
+  {
+    "id": 23,
+    "category": "Accuracy & Verification",
+    "difficulty": "Intermediate",
+    "question": "A generated summary omits a major exception in the source policy. What does this illustrate?",
+    "options": {
+      "A": "Summaries always preserve every important detail",
+      "B": "AI summaries can omit nuance, exceptions, or context and need review against the source",
+      "C": "The original policy must be wrong",
+      "D": "A shorter summary is always better"
+    },
+    "correctAnswer": "B",
+    "explanation": "AI summaries can miss nuance and exceptions. Check important details against the source."
+  },
+  {
+    "id": 24,
+    "category": "Accuracy & Verification",
+    "difficulty": "Intermediate",
+    "question": "Which practice improves the auditability of an AI-assisted business report?",
+    "options": {
+      "A": "Keep only the final polished text",
+      "B": "Retain relevant source data, assumptions, verification steps, and required records in line with company policy",
+      "C": "Remove caveats and evidence",
+      "D": "Use an unapproved personal account so the work stays separate"
+    },
+    "correctAnswer": "B",
+    "explanation": "Keep relevant sources, assumptions, and checks according to company policy."
+  },
+  {
+    "id": 25,
+    "category": "Bias & Fairness",
+    "difficulty": "Intermediate",
+    "question": "How can bias appear in an AI-assisted hiring or customer assessment?",
+    "options": {
+      "A": "Only through deliberate misconduct by the user",
+      "B": "Historical data or system design may disadvantage certain groups or produce unequal outcomes",
+      "C": "Bias is impossible when a computer makes the decision",
+      "D": "Only when the output contains offensive language"
+    },
+    "correctAnswer": "B",
+    "explanation": "Bias in data or design can lead to unfair outcomes for certain groups."
+  },
+  {
+    "id": 26,
+    "category": "Bias & Fairness",
+    "difficulty": "Intermediate",
+    "question": "An AI recommendation appears to treat similar customers differently. What should the employee do?",
+    "options": {
+      "A": "Assume the model has identified a hidden truth",
+      "B": "Escalate for appropriate review, examine relevant evidence, and avoid relying on the recommendation alone",
+      "C": "Hide the difference to protect the tool",
+      "D": "Automatically reject the customer"
+    },
+    "correctAnswer": "B",
+    "explanation": "Escalate unequal outcomes for review; do not rely on the recommendation alone."
+  },
+  {
+    "id": 27,
+    "category": "Bias & Fairness",
+    "difficulty": "Intermediate",
+    "question": "What does fairness in AI use generally require from an organization?",
+    "options": {
+      "A": "The same model must be used for every task",
+      "B": "Consider relevant groups, test for unjustified disparities, and apply appropriate controls for the use case",
+      "C": "Ignore complaints if the system is efficient",
+      "D": "Remove all human review"
+    },
+    "correctAnswer": "B",
+    "explanation": "Assess outcomes and apply suitable fairness testing, monitoring, and review."
+  },
+  {
+    "id": 28,
+    "category": "Human Oversight",
+    "difficulty": "Beginner",
+    "question": "Who remains accountable for a business decision made with AI assistance?",
+    "options": {
+      "A": "The AI tool alone",
+      "B": "The employee or authorized decision-maker and the organization under their applicable responsibilities",
+      "C": "The person who wrote the prompt in every case, regardless of role",
+      "D": "No one if AI was used"
+    },
+    "correctAnswer": "B",
+    "explanation": "People and the organization retain applicable accountability for AI-assisted decisions."
+  },
+  {
+    "id": 29,
+    "category": "Human Oversight",
+    "difficulty": "Intermediate",
+    "question": "When should an AI-generated recommendation receive heightened human review?",
+    "options": {
+      "A": "Only when it is inconvenient",
+      "B": "When it affects significant customer, employee, financial, legal, safety, or other high-impact outcomes",
+      "C": "Never, if the model is new",
+      "D": "Only after an error becomes public"
+    },
+    "correctAnswer": "B",
+    "explanation": "Use heightened review for decisions with significant customer, employee, financial, legal, or safety impact."
+  },
+  {
+    "id": 30,
+    "category": "Human Oversight",
+    "difficulty": "Intermediate",
+    "question": "What should an employee do if an AI recommendation conflicts with reliable evidence or established procedure?",
+    "options": {
+      "A": "Follow AI because it may know more",
+      "B": "Pause, verify the evidence, follow approved procedures, and escalate when necessary",
+      "C": "Change the evidence to match the recommendation",
+      "D": "Proceed without recording the conflict"
+    },
+    "correctAnswer": "B",
+    "explanation": "Verify evidence, follow procedures, and escalate conflicts with AI recommendations."
+  },
+  {
+    "id": 31,
+    "category": "Human Oversight",
+    "difficulty": "Intermediate",
+    "question": "What is a meaningful human review of AI-generated work?",
+    "options": {
+      "A": "Clicking approve without reading",
+      "B": "Assessing accuracy, context, risks, and suitability with enough expertise and authority to challenge the output",
+      "C": "Checking only spelling",
+      "D": "Assuming another team has verified everything"
+    },
+    "correctAnswer": "B",
+    "explanation": "Meaningful review checks accuracy, context, risk, and suitability—not just approval."
+  },
+  {
+    "id": 32,
+    "category": "AI Governance",
+    "difficulty": "Beginner",
+    "question": "What is the main purpose of an enterprise AI governance framework?",
+    "options": {
+      "A": "To prevent all use of AI",
+      "B": "To define accountability, acceptable use, risk management, and controls across the AI lifecycle",
+      "C": "To let each employee create their own rules",
+      "D": "To guarantee every AI output is correct"
+    },
+    "correctAnswer": "B",
+    "explanation": "Governance defines accountability, acceptable use, risk management, and controls."
+  },
+  {
+    "category": "Insurance AI Scenarios",
+    "difficulty": "Intermediate",
+    "question": "AI flags a claim as potentially fraudulent. What should happen next?",
+    "options": {
+      "A": "Automatically reject the claim",
+      "B": "Treat the flag as a lead and have an authorized reviewer assess the evidence",
+      "C": "Tell the customer they committed fraud",
+      "D": "Ignore all supporting documents"
+    },
+    "correctAnswer": "B",
+    "explanation": "A risk flag is not proof. Review evidence and follow claims investigation procedures before taking action.",
+    "id": 33
+  },
+  {
+    "category": "Insurance AI Scenarios",
+    "difficulty": "Intermediate",
+    "question": "An AI tool suggests a higher premium for an applicant. What is the responsible approach?",
+    "options": {
+      "A": "Apply it without review",
+      "B": "Check the recommendation against approved underwriting rules, relevant evidence, and fairness controls",
+      "C": "Assume the applicant is high risk",
+      "D": "Change the data to lower the premium"
+    },
+    "correctAnswer": "B",
+    "explanation": "Underwriting recommendations need validation against approved criteria, data quality, and fairness requirements.",
+    "id": 34
+  },
+  {
+    "category": "Insurance AI Scenarios",
+    "difficulty": "Intermediate",
+    "question": "An employee wants to upload medical reports to an unapproved AI summarizer. What should they do?",
+    "options": {
+      "A": "Upload them if the summary is useful",
+      "B": "Use an approved tool and follow health-data privacy and access rules",
+      "C": "Remove the customer's first name only and upload everything",
+      "D": "Send the reports to a personal email first"
+    },
+    "correctAnswer": "B",
+    "explanation": "Medical information is sensitive. Use approved systems and follow data minimization, access, and privacy requirements.",
+    "id": 35
+  },
+  {
+    "category": "Insurance AI Scenarios",
+    "difficulty": "Intermediate",
+    "question": "AI drafts an explanation that a customer's claim is not covered. What must happen before it is sent?",
+    "options": {
+      "A": "Send it if the tone sounds professional",
+      "B": "Verify the policy wording, claim facts, and required approval with an authorized reviewer",
+      "C": "Ask AI to make the denial sound more certain",
+      "D": "Remove the policy references"
+    },
+    "correctAnswer": "B",
+    "explanation": "Coverage decisions affect customers. Verify policy terms and facts, and follow the required review process.",
+    "id": 36
+  },
+  {
+    "category": "Insurance AI Scenarios",
+    "difficulty": "Intermediate",
+    "question": "A sales AI recommends a product that may not fit a customer's stated needs. What should the agent do?",
+    "options": {
+      "A": "Recommend it because the AI selected it",
+      "B": "Assess suitability against the customer's needs and approved sales practices",
+      "C": "Hide the customer's stated needs",
+      "D": "Prioritize the product with the highest commission"
+    },
+    "correctAnswer": "B",
+    "explanation": "AI suggestions do not replace customer-needs assessment, suitability checks, or responsible sales practices.",
+    "id": 37
+  },
+  {
+    "category": "Insurance AI Scenarios",
+    "difficulty": "Intermediate",
+    "question": "An AI claims tool performs less accurately for one customer group. What is the best response?",
+    "options": {
+      "A": "Keep using it because overall accuracy is high",
+      "B": "Escalate the issue, investigate the disparity, and apply appropriate safeguards",
+      "C": "Hide the results from reviewers",
+      "D": "Let the tool decide which group to exclude"
+    },
+    "correctAnswer": "B",
+    "explanation": "Differences in performance may create unfair outcomes. Investigate, document, and address them before relying on the system.",
+    "id": 38
+  },
+  {
+    "category": "Insurance AI Scenarios",
+    "difficulty": "Intermediate",
+    "question": "A broker sends an urgent voice message requesting a change to payment details. It may be AI-generated. What should staff do?",
+    "options": {
+      "A": "Update the details immediately",
+      "B": "Verify the request using a known contact and established payment controls",
+      "C": "Trust it if the voice sounds familiar",
+      "D": "Ask the AI tool to confirm the speaker's identity"
+    },
+    "correctAnswer": "B",
+    "explanation": "Voice cloning can support impersonation fraud. Independently verify sensitive requests through trusted channels.",
+    "id": 39
+  },
+  {
+    "category": "Insurance AI Scenarios",
+    "difficulty": "Intermediate",
+    "question": "A team wants an AI assistant to summarize claim files across multiple cases. What should be checked first?",
+    "options": {
+      "A": "Only whether it saves time",
+      "B": "Tool approval, access permissions, data handling, accuracy, and human review requirements",
+      "C": "Whether it can access every file by default",
+      "D": "Whether summaries can be sent externally without review"
+    },
+    "correctAnswer": "B",
+    "explanation": "Claim files can contain sensitive data. Confirm access controls, approved use, accuracy checks, and oversight before deployment.",
+    "id": 40
   }
 ]
