@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
 import type { QuizState, AppScreen, AnswerKey, UserAnswer, Question } from '../types';
-import { loadInitialQuestions, saveCustomQuestions, MINECRAFT_PACK } from '../lib/questionStore';
+import { loadInitialQuestions, saveCustomQuestions, GENERAL_TRIVIA_PACK } from '../lib/questionStore';
 
 export interface ExtendedQuizState extends QuizState {
   questions: Question[];
@@ -11,8 +11,8 @@ export interface ExtendedQuizState extends QuizState {
 }
 
 const INITIAL_STATE: ExtendedQuizState = {
-  questions: MINECRAFT_PACK,
-  activePackId: 'minecraft',
+  questions: GENERAL_TRIVIA_PACK,
+  activePackId: 'general-trivia',
   currentQuestionIndex: 0,
   score: 0,
   userAnswers: [],

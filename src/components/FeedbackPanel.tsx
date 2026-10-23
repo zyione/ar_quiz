@@ -42,7 +42,7 @@ export default function FeedbackPanel({
   const SUCCESS_MESSAGES = [
     'Excellent! 🎉',
     'You got it! ✨',
-    'AI Smart Move! 🤖',
+    'Trivia Genius! 🌟',
     'Outstanding! 🏆',
     'Brilliant! 💡',
     'Spot on! 🎯',
@@ -60,7 +60,7 @@ export default function FeedbackPanel({
               <span className="banner-status">Correct!</span>
               <span className="banner-msg">{successMsg}</span>
             </div>
-            <div className="score-pop">+100</div>
+            <div className="score-pop">+10</div>
           </div>
         ) : (
           <div className="banner-content">
@@ -101,13 +101,15 @@ export default function FeedbackPanel({
           </div>
         </div>
 
-        <div className="exp-section">
-          <div className="exp-icon">🎓</div>
-          <div className="exp-content">
-            <h3 className="exp-title">AI Literacy Principle</h3>
-            <p>{question.principle}</p>
+        {question.principle && (
+          <div className="exp-section">
+            <div className="exp-icon">🎓</div>
+            <div className="exp-content">
+              <h3 className="exp-title">Key Principle</h3>
+              <p>{question.principle}</p>
+            </div>
           </div>
-        </div>
+        )}
 
         {question.workplaceExample && (
           <div className="exp-section">

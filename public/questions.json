@@ -1,142 +1,282 @@
 [
   {
     "id": 1,
-    "category": "Minecraft Trivia",
+    "category": "Science & Nature",
     "difficulty": "Beginner",
-    "question": "What tool is required to mine Diamond Ore and collect diamonds?",
+    "question": "What is the hardest natural substance found on Earth?",
     "options": {
-      "A": "Wooden Pickaxe",
-      "B": "Stone Pickaxe",
-      "C": "Iron Pickaxe",
-      "D": "Golden Pickaxe"
+      "A": "Quartz",
+      "B": "Titanium",
+      "C": "Granite",
+      "D": "Diamond"
     },
-    "correctAnswer": "C",
-    "explanation": "You need an Iron Pickaxe (or Diamond/Netherite) to mine Diamond Ore. Stone or Wood will destroy the block!"
+    "correctAnswer": "D",
+    "explanation": "Diamond is the hardest naturally occurring substance on Earth, scoring a maximum 10 on the Mohs hardness scale."
   },
   {
     "id": 2,
-    "category": "Minecraft Trivia",
+    "category": "World Geography",
     "difficulty": "Beginner",
-    "question": "Which hostile mob hisses and explodes when it gets near you?",
+    "question": "Which is the largest and deepest ocean on Earth?",
     "options": {
-      "A": "Zombie",
-      "B": "Skeleton",
-      "C": "Creeper",
-      "D": "Enderman"
+      "A": "Atlantic Ocean",
+      "B": "Pacific Ocean",
+      "C": "Indian Ocean",
+      "D": "Arctic Ocean"
     },
-    "correctAnswer": "C",
-    "explanation": "Creepers silently approach players and hiss for about 1.5 seconds before exploding."
+    "correctAnswer": "B",
+    "explanation": "The Pacific Ocean covers over 60 million square miles, making it larger than all of Earth's land areas combined."
   },
   {
     "id": 3,
-    "category": "Minecraft Trivia",
+    "category": "Animals & Wildlife",
     "difficulty": "Beginner",
-    "question": "What blocks do you need to construct a Nether Portal frame?",
+    "question": "What is the fastest land animal in the world?",
     "options": {
-      "A": "Bedrock",
-      "B": "Obsidian",
-      "C": "Crying Obsidian",
-      "D": "Blackstone"
+      "A": "Cheetah",
+      "B": "Pronghorn Antelope",
+      "C": "Lion",
+      "D": "Greyhound"
     },
-    "correctAnswer": "B",
-    "explanation": "A Nether Portal is made using a minimum of 10 blocks of Obsidian and ignited with Flint and Steel."
+    "correctAnswer": "A",
+    "explanation": "Cheetahs can accelerate from 0 to 60 mph in under 3 seconds and reach top sprint speeds of around 70 mph (112 km/h)."
   },
   {
     "id": 4,
-    "category": "Minecraft Trivia",
-    "difficulty": "Intermediate",
-    "question": "What happens if you try to sleep in a Bed in the Nether or the End?",
+    "category": "Astronomy & Space",
+    "difficulty": "Beginner",
+    "question": "Which planet in our solar system is known as the 'Red Planet'?",
     "options": {
-      "A": "You skip to daytime",
-      "B": "The bed explodes violently",
-      "C": "You get teleported back to spawn",
-      "D": "You take poison damage"
+      "A": "Venus",
+      "B": "Jupiter",
+      "C": "Mars",
+      "D": "Mercury"
     },
-    "correctAnswer": "B",
-    "explanation": "Beds explode with huge destructive power when used in any dimension other than the Overworld!"
+    "correctAnswer": "C",
+    "explanation": "Mars gets its distinctive reddish appearance from iron oxide (rust) widespread across its surface."
   },
   {
     "id": 5,
-    "category": "Minecraft Trivia",
+    "category": "Art & History",
     "difficulty": "Beginner",
-    "question": "What item do you feed to Cows and Sheep to breed them?",
+    "question": "Who painted the world-famous masterpiece, the Mona Lisa?",
     "options": {
-      "A": "Carrots",
-      "B": "Wheat",
-      "C": "Apples",
-      "D": "Seeds"
+      "A": "Vincent van Gogh",
+      "B": "Leonardo da Vinci",
+      "C": "Pablo Picasso",
+      "D": "Michelangelo"
     },
     "correctAnswer": "B",
-    "explanation": "Feeding Wheat to two cows or sheep makes them enter love mode and produce a baby."
+    "explanation": "Leonardo da Vinci painted the Mona Lisa in Florence during the Italian Renaissance in the early 16th century."
   },
   {
     "id": 6,
-    "category": "Minecraft Trivia",
+    "category": "Human Biology",
     "difficulty": "Intermediate",
-    "question": "Which item dropped by Endermen is combined with Blaze Powder to find Strongholds?",
+    "question": "What is the largest organ of the human body?",
     "options": {
-      "A": "Ender Pearl",
-      "B": "Eye of Ender",
-      "C": "End Stone",
-      "D": "Echo Shard"
+      "A": "Brain",
+      "B": "Liver",
+      "C": "Lungs",
+      "D": "Skin"
     },
-    "correctAnswer": "A",
-    "explanation": "Endermen drop Ender Pearls, which craft Eyes of Ender when combined with Blaze Powder."
+    "correctAnswer": "D",
+    "explanation": "The skin is the body's largest organ, accounting for approximately 15% of total adult body weight."
   },
   {
     "id": 7,
-    "category": "Minecraft Trivia",
-    "difficulty": "Intermediate",
-    "question": "Which of these mobs does NOT burn in direct sunlight?",
+    "category": "Food & Culture",
+    "difficulty": "Beginner",
+    "question": "What is the primary ingredient used to make traditional guacamole?",
     "options": {
-      "A": "Zombie",
-      "B": "Skeleton",
-      "C": "Phantom",
-      "D": "Creeper"
+      "A": "Cucumber",
+      "B": "Avocado",
+      "C": "Green Apple",
+      "D": "Edamame"
     },
-    "correctAnswer": "D",
-    "explanation": "Creepers and Spiders are immune to daylight burning, whereas Zombies, Skeletons, and Phantoms burn."
+    "correctAnswer": "B",
+    "explanation": "Guacamole is a traditional Mexican dish made predominantly with mashed ripe avocados, lime juice, salt, and cilantro."
   },
   {
     "id": 8,
-    "category": "Minecraft Trivia",
-    "difficulty": "Advanced",
-    "question": "What is the ancient material found deep in the Nether used to upgrade Diamond gear to Netherite?",
+    "category": "History & Inventions",
+    "difficulty": "Intermediate",
+    "question": "In which year did Apollo 11 astronauts first land on the Moon?",
     "options": {
-      "A": "Nether Quartz",
-      "B": "Nether Gold Ore",
-      "C": "Ancient Debris",
-      "D": "Magma Block"
+      "A": "1965",
+      "B": "1969",
+      "C": "1972",
+      "D": "1959"
     },
-    "correctAnswer": "C",
-    "explanation": "Ancient Debris is smelted into Netherite Scraps, which are crafted with Gold into Netherite Ingots."
+    "correctAnswer": "B",
+    "explanation": "Apollo 11 astronauts Neil Armstrong and Buzz Aldrin landed on the lunar surface on July 20, 1969."
   },
   {
     "id": 9,
-    "category": "Minecraft Trivia",
+    "category": "World Landmarks",
     "difficulty": "Beginner",
-    "question": "What is the final boss mob found on the main island in the End dimension?",
+    "question": "Which iconic ancient wonder is located in Giza, Egypt?",
     "options": {
-      "A": "The Wither",
-      "B": "The Warden",
-      "C": "The Ender Dragon",
-      "D": "The Elder Guardian"
+      "A": "The Colosseum",
+      "B": "The Great Pyramid",
+      "C": "The Parthenon",
+      "D": "Petra"
     },
-    "correctAnswer": "C",
-    "explanation": "The Ender Dragon is the legendary final boss residing in the End dimension."
+    "correctAnswer": "B",
+    "explanation": "The Great Pyramid of Giza is the oldest and only largely intact wonder of the ancient world."
   },
   {
     "id": 10,
-    "category": "Minecraft Trivia",
+    "category": "Science & Chemistry",
     "difficulty": "Intermediate",
-    "question": "How many Obsidian blocks are required for the minimum frame of a Nether Portal?",
+    "question": "What is the chemical symbol for Gold on the periodic table?",
     "options": {
-      "A": "8",
-      "B": "10",
-      "C": "12",
-      "D": "14"
+      "A": "Au",
+      "B": "Ag",
+      "C": "Gd",
+      "D": "Fe"
+    },
+    "correctAnswer": "A",
+    "explanation": "The symbol 'Au' originates from the Latin word 'aurum', meaning 'shining dawn' or gold."
+  },
+  {
+    "id": 11,
+    "category": "Literature & Pop Culture",
+    "difficulty": "Beginner",
+    "question": "How many books are in the original Harry Potter series by J.K. Rowling?",
+    "options": {
+      "A": "5",
+      "B": "6",
+      "C": "7",
+      "D": "8"
+    },
+    "correctAnswer": "C",
+    "explanation": "The original fantasy series spans 7 books, starting with 'The Sorcerer's Stone' through 'The Deathly Hallows'."
+  },
+  {
+    "id": 12,
+    "category": "Science & Botany",
+    "difficulty": "Beginner",
+    "question": "What gas do green plants absorb from the atmosphere for photosynthesis?",
+    "options": {
+      "A": "Oxygen",
+      "B": "Carbon Dioxide",
+      "C": "Nitrogen",
+      "D": "Helium"
     },
     "correctAnswer": "B",
-    "explanation": "A 4x5 portal without the four corner blocks requires exactly 10 Obsidian blocks."
+    "explanation": "During photosynthesis, plants take in carbon dioxide and water, converting them into glucose and oxygen with sunlight."
+  },
+  {
+    "id": 13,
+    "category": "World Geography",
+    "difficulty": "Intermediate",
+    "question": "Which continent contains the largest number of independent countries?",
+    "options": {
+      "A": "Asia",
+      "B": "Europe",
+      "C": "South America",
+      "D": "Africa"
+    },
+    "correctAnswer": "D",
+    "explanation": "Africa has 54 fully recognized sovereign nations, more than any other continent."
+  },
+  {
+    "id": 14,
+    "category": "Music & Instruments",
+    "difficulty": "Intermediate",
+    "question": "How many keys does a standard acoustic grand piano have?",
+    "options": {
+      "A": "88",
+      "B": "76",
+      "C": "64",
+      "D": "100"
+    },
+    "correctAnswer": "A",
+    "explanation": "A standard piano features 88 keys: 52 white keys for natural notes and 36 black keys for accidentals."
+  },
+  {
+    "id": 15,
+    "category": "Animals & Wildlife",
+    "difficulty": "Beginner",
+    "question": "Which is the only known bird capable of flying backwards?",
+    "options": {
+      "A": "Hummingbird",
+      "B": "Woodpecker",
+      "C": "Kingfisher",
+      "D": "Swallow"
+    },
+    "correctAnswer": "A",
+    "explanation": "Hummingbirds have specialized wing joints that allow them to fly backwards, upside down, and hover steadily in mid-air."
+  },
+  {
+    "id": 16,
+    "category": "History & Landmarks",
+    "difficulty": "Beginner",
+    "question": "Which country is home to the prehistoric stone circle monument Stonehenge?",
+    "options": {
+      "A": "Ireland",
+      "B": "United Kingdom",
+      "C": "Germany",
+      "D": "France"
+    },
+    "correctAnswer": "B",
+    "explanation": "Stonehenge is located on Salisbury Plain in Wiltshire, England (United Kingdom)."
+  },
+  {
+    "id": 17,
+    "category": "Animals & Wildlife",
+    "difficulty": "Beginner",
+    "question": "What is the largest living mammal on planet Earth?",
+    "options": {
+      "A": "African Bush Elephant",
+      "B": "Colossal Squid",
+      "C": "Blue Whale",
+      "D": "Whale Shark"
+    },
+    "correctAnswer": "C",
+    "explanation": "The Blue Whale can reach lengths of up to 100 feet (30 meters) and weigh up to 200 tons, making it the largest known animal."
+  },
+  {
+    "id": 18,
+    "category": "Science & Nature",
+    "difficulty": "Beginner",
+    "question": "How many colors are traditionally identified in a rainbow?",
+    "options": {
+      "A": "5",
+      "B": "6",
+      "C": "7",
+      "D": "8"
+    },
+    "correctAnswer": "C",
+    "explanation": "The 7 traditional colors in order are Red, Orange, Yellow, Green, Blue, Indigo, and Violet (ROYGBIV)."
+  },
+  {
+    "id": 19,
+    "category": "Food & Culture",
+    "difficulty": "Beginner",
+    "question": "Which country is celebrated as the historical birthplace of modern pizza?",
+    "options": {
+      "A": "Greece",
+      "B": "Spain",
+      "C": "France",
+      "D": "Italy"
+    },
+    "correctAnswer": "D",
+    "explanation": "Modern pizza with tomato and mozzarella originated in Naples, Italy, in the late 18th and 19th centuries."
+  },
+  {
+    "id": 20,
+    "category": "Sports & Games",
+    "difficulty": "Beginner",
+    "question": "How many interlocking rings are featured on the official Olympic flag?",
+    "options": {
+      "A": "5",
+      "B": "4",
+      "C": "6",
+      "D": "7"
+    },
+    "correctAnswer": "A",
+    "explanation": "The 5 interlocking rings represent the five inhabited continents united in friendly competition by Olympism."
   }
 ]
