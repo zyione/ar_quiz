@@ -3,10 +3,11 @@ import { useQuiz } from '../context/QuizContext';
 import QuestionEditorModal from '../components/QuestionEditorModal';
 
 const GESTURE_MAP = [
-  { fingers: '☝️', label: '1 Finger', answer: 'A' },
-  { fingers: '✌️', label: '2 Fingers', answer: 'B' },
-  { fingers: '🤟', label: '3 Fingers', answer: 'C' },
-  { fingers: '🖐️', label: '4 Fingers', answer: 'D' },
+  { fingers: '☝️', label: '1 Finger', answer: 'A', action: 'Answer A' },
+  { fingers: '✌️', label: '2 Fingers', answer: 'B', action: 'Answer B' },
+  { fingers: '🤟', label: '3 Fingers', answer: 'C', action: 'Answer C' },
+  { fingers: '🖖', label: '4 Fingers', answer: 'D', action: 'Answer D' },
+  { fingers: '🖐️', label: '5 Fingers / ✊', answer: 'Next ➜', action: 'Next Question' },
 ];
 
 export default function WelcomeScreen() {
@@ -79,10 +80,10 @@ export default function WelcomeScreen() {
         </p>
         <div className="gesture-grid">
           {GESTURE_MAP.map((g) => (
-            <div key={g.answer} className="gesture-card">
+            <div key={g.label} className={`gesture-card ${g.answer.includes('Next') ? 'gesture-card-fist' : ''}`}>
               <div className="gesture-emoji">{g.fingers}</div>
               <div className="gesture-label">{g.label}</div>
-              <div className="gesture-answer">Answer <strong>{g.answer}</strong></div>
+              <div className="gesture-answer">{g.action}</div>
             </div>
           ))}
         </div>

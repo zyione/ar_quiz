@@ -2278,4 +2278,91 @@ p { color: var(--text-secondary); }
   }
 }
 
+/* ─── ADVANCE GESTURE (5 FINGERS / CLOSED FIST) STYLING ───────────────────── */
+.ar-dwell-pill.fist-idle {
+  background: rgba(6, 78, 59, 0.75);
+  color: #a7f3d0;
+  border: 1.5px solid rgba(52, 211, 153, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.ar-dwell-pill.fist-active {
+  background: rgba(6, 95, 70, 0.9);
+  color: #34d399;
+  border: 1.5px solid #10b981;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.65);
+  transform: scale(1.04);
+}
+
+.ar-pill-radial-bar.fist-radial-bar {
+  background: linear-gradient(90deg, #10b981, #34d399);
+  box-shadow: 0 0 10px #34d399;
+}
+
+.legend-fist-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 16px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-radius: var(--radius-md, 8px);
+  color: #e2e8f0;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
+}
+
+.legend-fist-banner.fist-holding {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: #10b981;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+}
+
+.legend-fist-emoji {
+  font-size: 1.25rem;
+  display: inline-block;
+  animation: pulse 1.8s infinite;
+}
+
+.legend-fist-label strong {
+  color: #34d399;
+}
+
+.feedback-actions-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.feedback-fist-signage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px dashed rgba(52, 211, 153, 0.45);
+  border-radius: var(--radius-full, 9999px);
+  color: #d1fae5;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.feedback-fist-signage strong {
+  color: #34d399;
+}
+
+.fist-signage-icon {
+  font-size: 1.15rem;
+}
+
+.gesture-card-fist {
+  border-color: rgba(52, 211, 153, 0.4);
+  background: rgba(16, 185, 129, 0.08);
+}
+
 

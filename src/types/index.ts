@@ -62,6 +62,8 @@ export interface HandGestureResult {
   answer: GestureAnswer;
   confidence: 'high' | 'low' | 'none';
   landmarks?: HandLandmarkPoint[];
+  isFist?: boolean;
+  isFiveFingers?: boolean;
 }
 
 export type PerformanceLevel =

@@ -171,6 +171,7 @@ export default function QuizScreen() {
           <CameraPanel
             onDwellProgress={handleDwellProgress}
             onDwellComplete={handleDwellComplete}
+            onFistAdvance={nextQuestion}
             lockedAnswer={confirmedAnswer}
             cameraEnabled={cameraEnabled}
           />
@@ -203,13 +204,21 @@ export default function QuizScreen() {
                 </span>
               </div>
               <p className="feedback-explanation">{currentQuestion.explanation}</p>
-              <button
-                className="btn btn-primary feedback-next-btn"
-                onClick={nextQuestion}
-                autoFocus
-              >
-                {currentQuestionIndex + 1 >= totalQuestions ? 'View Results 🏆' : 'Next Question ➜'}
-              </button>
+              <div className="feedback-actions-container">
+                <button
+                  className="btn btn-primary feedback-next-btn"
+                  onClick={nextQuestion}
+                  autoFocus
+                >
+                  {currentQuestionIndex + 1 >= totalQuestions ? 'View Results 🏆' : 'Next Question ➜'}
+                </button>
+                <div className="feedback-fist-signage">
+                  <span className="fist-signage-icon">🖐️</span>
+                  <span className="fist-signage-text">
+                    Sign: <strong>5 Fingers 🖐️</strong> (or ✊ Fist) to advance
+                  </span>
+                </div>
+              </div>
             </div>
           )}
         </section>

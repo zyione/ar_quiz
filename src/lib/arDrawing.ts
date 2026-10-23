@@ -24,7 +24,8 @@ export function drawHandSkeleton(
   landmarks: HandLandmarkPoint[],
   width: number,
   height: number,
-  isDetectingActive: boolean = false
+  isDetectingActive: boolean = false,
+  isFist: boolean = false
 ) {
   if (!landmarks || landmarks.length < 21) return;
 
@@ -38,10 +39,13 @@ export function drawHandSkeleton(
   ctx.lineJoin = 'round';
 
   // Outer glow pass
-  ctx.shadowBlur = isDetectingActive ? 14 : 8;
-  ctx.shadowColor = isDetectingActive ? '#38bdf8' : '#00e5ff';
-  ctx.strokeStyle = isDetectingActive ? 'rgba(56, 189, 248, 0.75)' : 'rgba(0, 229, 255, 0.6)';
-  ctx.lineWidth = 4;
+  const glowColor = isFist ? '#10b981' : isDetectingActive ? '#38bdf8' : '#00e5ff';
+  const strokeGlow = isFist ? 'rgba(16, 185, 129, 0.85)' : isDetectingActive ? 'rgba(56, 189, 248, 0.75)' : 'rgba(0, 229, 255, 0.6)';
+
+  ctx.shadowBlur = isFist ? 18 : isDetectingActive ? 14 : 8;
+  ctx.shadowColor = glowColor;
+  ctx.strokeStyle = strokeGlow;
+  ctx.lineWidth = isFist ? 5 : 4;
 
   ctx.beginPath();
   for (const [startIdx, endIdx] of HAND_CONNECTIONS) {

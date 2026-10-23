@@ -5,12 +5,15 @@ import { getCameraStream, stopCameraStream } from '../lib/cameraStream';
 import type { GestureAnswer, AnswerKey } from '../types';
 
 const DWELL_DURATION_MS = 1500; // 1.5 seconds dwell hold
+const ADVANCE_DWELL_DURATION_MS = 850; // 0.85s hold for 5 fingers or closed fist to advance
+const ADVANCE_LOCK_COOLDOWN_MS = 400; // 0.4s cooldown after answer confirmation
 const GRACE_PERIOD_MS = 250; // Grace period for laptop webcam drops
 const ANSWER_ICONS: Record<AnswerKey, string> = { A: '☝️ 1', B: '✌️ 2', C: '🤟 3', D: '🖐️ 4' };
 
 interface Props {
   onDwellProgress: (candidate: AnswerKey | null, progress: number) => void;
   onDwellComplete: (answer: AnswerKey) => void;
+  onFistAdvance?: () => void;
   lockedAnswer: AnswerKey | null;
   cameraEnabled: boolean;
 }
@@ -18,6 +21,7 @@ interface Props {
 export default function CameraPanel({
   onDwellProgress,
   onDwellComplete,
+  onFistAdvance,
   lockedAnswer,
   cameraEnabled,
 }: Props) {
@@ -32,16 +36,26 @@ export default function CameraPanel({
   const onDwellCompleteRef = useRef(onDwellComplete);
   onDwellCompleteRef.current = onDwellComplete;
 
+  const onAdvanceRef = useRef(onFistAdvance);
+  onAdvanceRef.current = onFistAdvance;
+
   // Dwell state tracking
   const candidateRef = useRef<AnswerKey | null>(null);
   const dwellStartRef = useRef<number | null>(null);
   const lockedRef = useRef<boolean>(false);
   const lastSeenTimeRef = useRef<number>(0);
 
+  // Advance gesture (5 fingers or fist) dwell tracking
+  const advanceStartRef = useRef<number | null>(null);
+  const lockTimeRef = useRef<number>(0);
+  const advanceTriggeredRef = useRef<boolean>(false);
+
   const [camStatus, setCamStatus] = useState<'idle' | 'active' | 'denied' | 'error' | 'off'>('idle');
   const [detectedAnswer, setDetectedAnswer] = useState<GestureAnswer>(null);
   const [detectedFingers, setDetectedFingers] = useState<number | null>(null);
   const [dwellPercent, setDwellPercent] = useState<number>(0);
+  const [advancePercent, setAdvancePercent] = useState<number>(0);
+  const [advanceType, setAdvanceType] = useState<'five' | 'fist' | null>(null);
   const [handReady, setHandReady] = useState(false);
   const [camEnabled, setCamEnabled] = useState(cameraEnabled);
 
@@ -53,6 +67,11 @@ export default function CameraPanel({
       dwellStartRef.current = null;
       setDwellPercent(0);
       onDwellProgressRef.current(null, 0);
+      lockTimeRef.current = performance.now();
+      advanceStartRef.current = null;
+      advanceTriggeredRef.current = false;
+      setAdvancePercent(0);
+      setAdvanceType(null);
     } else {
       // Unlocked for the next question: reset candidate and dwell
       candidateRef.current = null;
@@ -60,6 +79,10 @@ export default function CameraPanel({
       setDwellPercent(0);
       setDetectedAnswer(null);
       onDwellProgressRef.current(null, 0);
+      advanceStartRef.current = null;
+      advanceTriggeredRef.current = false;
+      setAdvancePercent(0);
+      setAdvanceType(null);
     }
   }, [lockedAnswer]);
 
@@ -121,23 +144,28 @@ export default function CameraPanel({
         // Run hand detection
         const result = detectFingers(video);
         setDetectedFingers(result.fingerCount);
+        const isFive = !!result.isFiveFingers || result.fingerCount === 5;
+        const isFist = !!result.isFist;
+        const isAdvanceGesture = isFive || isFist;
 
         // Draw AR Skeleton directly on overlay canvas
         if (canvas) {
           const ctx = canvas.getContext('2d');
           if (ctx) {
             if (result.landmarks && result.landmarks.length > 0) {
-              drawHandSkeleton(ctx, result.landmarks, canvas.width, canvas.height, !!result.answer);
+              const isHoldingAdvance = !!(lockedRef.current && isAdvanceGesture);
+              drawHandSkeleton(ctx, result.landmarks, canvas.width, canvas.height, !!result.answer, isHoldingAdvance);
             } else {
               ctx.clearRect(0, 0, canvas.width, canvas.height);
             }
           }
         }
 
+        const now = performance.now();
+
         // Process Dwell Auto-Lock Logic (with anti-jitter grace period for laptop webcams)
         if (!lockedRef.current) {
           const currentAns = result.answer;
-          const now = performance.now();
 
           if (currentAns) {
             lastSeenTimeRef.current = now;
@@ -172,6 +200,41 @@ export default function CameraPanel({
                 dwellStartRef.current = null;
                 setDwellPercent(0);
                 onDwellProgressRef.current(null, 0);
+              }
+            }
+          }
+        } else {
+          // Question is locked & feedback showing: Process 5 fingers or closed fist to Advance!
+          const canCheckAdvance = now - lockTimeRef.current > ADVANCE_LOCK_COOLDOWN_MS;
+          if (canCheckAdvance && isAdvanceGesture && onAdvanceRef.current && !advanceTriggeredRef.current) {
+            lastSeenTimeRef.current = now;
+            const currentType = isFive ? 'five' : 'fist';
+            setAdvanceType(currentType);
+
+            if (advanceStartRef.current !== null) {
+              const elapsed = now - advanceStartRef.current;
+              const progress = Math.min(1, elapsed / ADVANCE_DWELL_DURATION_MS);
+              setAdvancePercent(progress);
+
+              if (progress >= 1 && !advanceTriggeredRef.current) {
+                advanceTriggeredRef.current = true;
+                advanceStartRef.current = null;
+                setAdvancePercent(0);
+                setAdvanceType(null);
+                onAdvanceRef.current();
+              }
+            } else {
+              // First frame of holding 5 fingers or fist
+              advanceStartRef.current = now;
+              setAdvancePercent(0.08);
+            }
+          } else {
+            // Gesture released or within safety cooldown
+            if (now - lastSeenTimeRef.current > GRACE_PERIOD_MS) {
+              if (advanceStartRef.current !== null) {
+                advanceStartRef.current = null;
+                setAdvancePercent(0);
+                setAdvanceType(null);
               }
             }
           }
@@ -237,7 +300,22 @@ export default function CameraPanel({
         {camEnabled && camStatus === 'active' && (
           <>
             <div className="camera-ar-hud">
-              {detectedAnswer && !lockedAnswer ? (
+              {lockedAnswer ? (
+                <div className={`ar-dwell-pill fist-pill ${advancePercent > 0 ? 'fist-active' : 'fist-idle'}`}>
+                  <span className="ar-pill-icon">{advanceType === 'fist' ? '✊' : '🖐️'}</span>
+                  <span className="ar-pill-text">
+                    {advancePercent > 0
+                      ? `${advanceType === 'fist' ? 'Fist' : '5 Fingers'} Advancing... ${Math.round(advancePercent * 100)}%`
+                      : 'Show 5 Fingers 🖐️ to Advance'}
+                  </span>
+                  {advancePercent > 0 && (
+                    <div
+                      className="ar-pill-radial-bar fist-radial-bar"
+                      style={{ width: `${Math.round(advancePercent * 100)}%` }}
+                    />
+                  )}
+                </div>
+              ) : detectedAnswer ? (
                 <div className="ar-dwell-pill active">
                   <span className="ar-pill-icon">⏱</span>
                   <span className="ar-pill-text">
@@ -291,18 +369,27 @@ export default function CameraPanel({
 
       {/* Mini gesture bar below camera */}
       <div className="ar-finger-legend">
-        {(['A', 'B', 'C', 'D'] as AnswerKey[]).map((k) => {
-          const isCurrent = detectedAnswer === k && !lockedAnswer;
-          return (
-            <div
-              key={k}
-              className={`legend-item ${isCurrent ? 'legend-item-active' : ''}`}
-            >
-              <span className="legend-emoji">{ANSWER_ICONS[k]}</span>
-              <span className="legend-label">Option {k}</span>
-            </div>
-          );
-        })}
+        {lockedAnswer ? (
+          <div className={`legend-fist-banner ${advancePercent > 0 ? 'fist-holding' : ''}`}>
+            <span className="legend-fist-emoji">🖐️</span>
+            <span className="legend-fist-label">
+              <strong>Open Hand (5 Fingers 🖐️)</strong> or <strong>Closed Fist (✊)</strong> to advance
+            </span>
+          </div>
+        ) : (
+          (['A', 'B', 'C', 'D'] as AnswerKey[]).map((k) => {
+            const isCurrent = detectedAnswer === k && !lockedAnswer;
+            return (
+              <div
+                key={k}
+                className={`legend-item ${isCurrent ? 'legend-item-active' : ''}`}
+              >
+                <span className="legend-emoji">{ANSWER_ICONS[k]}</span>
+                <span className="legend-label">Option {k}</span>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

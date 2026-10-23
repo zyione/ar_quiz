@@ -72,13 +72,52 @@ export function detectFingers(videoEl: HTMLVideoElement): HandGestureResult {
 
   const count = countExtendedFingers(landmarks);
   const answer = fingerCountToAnswer(count);
+  const isFist = isClosedFist(landmarks);
+  const isFiveFingers = count === 5;
 
   return {
-    fingerCount: count,
+    fingerCount: isFist ? 0 : count,
     answer,
-    confidence: count !== null && count >= 1 && count <= 4 ? 'high' : 'low',
+    confidence: (count !== null && count >= 1 && count <= 5) || isFist ? 'high' : 'low',
     landmarks,
+    isFist,
+    isFiveFingers,
   };
+}
+
+export function isClosedFist(landmarks: HandLandmarkPoint[]): boolean {
+  if (!landmarks || landmarks.length < 21) return false;
+
+  const wrist = landmarks[0];
+  const middleMcp = landmarks[9];
+  const palmScale = dist3D(wrist, middleMcp);
+  if (palmScale < 0.04) return false;
+
+  const states = getFingerExtensionStates(landmarks);
+  const [, index, middle, ring, pinky] = states;
+
+  // 1. All four fingers (index, middle, ring, pinky) must NOT be extended
+  if (index || middle || ring || pinky) return false;
+
+  // 2. Geometry check: all 4 fingertips must be curled close to palm/MCP knuckles
+  const tipIndices = [8, 12, 16, 20];
+  const mcpIndices = [5, 9, 13, 17];
+  for (let i = 0; i < 4; i++) {
+    const tip = landmarks[tipIndices[i]];
+    const mcp = landmarks[mcpIndices[i]];
+    if (dist3D(tip, mcp) > palmScale * 1.3) {
+      return false;
+    }
+  }
+
+  // 3. Thumb check: if thumb is extended far away from index MCP, it's not a compact fist
+  const thumbTip = landmarks[4];
+  const indexMcp = landmarks[5];
+  if (states[0] && dist3D(thumbTip, indexMcp) > palmScale * 1.2) {
+    return false;
+  }
+
+  return true;
 }
 
 function dist3D(p1: HandLandmarkPoint, p2: HandLandmarkPoint): number {
@@ -133,6 +172,11 @@ function countExtendedFingers(landmarks: HandLandmarkPoint[]): number {
   const [thumb, index, middle, ring, pinky] = states;
 
   // 1. High-confidence common gesture shapes:
+  // 5 fingers: all five fingers extended (Open hand / high five)
+  if (thumb && index && middle && ring && pinky) {
+    return 5;
+  }
+
   // 4 fingers: all four non-thumb fingers up (Index + Middle + Ring + Pinky)
   if (index && middle && ring && pinky) {
     return 4;
@@ -155,11 +199,11 @@ function countExtendedFingers(landmarks: HandLandmarkPoint[]): number {
 
   // 2. Fallback to count of any extended fingers:
   const extendedCount = states.filter(Boolean).length;
+  if (extendedCount >= 5) {
+    return 5;
+  }
   if (extendedCount >= 1 && extendedCount <= 4) {
     return extendedCount;
-  }
-  if (extendedCount >= 5) {
-    return 4; // Open palm defaults to option D
   }
   return 0;
 }
