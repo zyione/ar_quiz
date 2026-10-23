@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { initHandLandmarker, detectFingers } from '../lib/handGesture';
 import { drawHandSkeleton } from '../lib/arDrawing';
+import { getCameraStream, stopCameraStream } from '../lib/cameraStream';
 import type { GestureAnswer, AnswerKey } from '../types';
 
 const DWELL_DURATION_MS = 1500; // 1.5 seconds dwell hold
@@ -22,8 +23,14 @@ export default function CameraPanel({
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
   const rafRef = useRef<number>(0);
+
+  // Stable callback refs so re-renders NEVER recreate loop or re-trigger camera setup
+  const onDwellProgressRef = useRef(onDwellProgress);
+  onDwellProgressRef.current = onDwellProgress;
+
+  const onDwellCompleteRef = useRef(onDwellComplete);
+  onDwellCompleteRef.current = onDwellComplete;
 
   // Dwell state tracking
   const candidateRef = useRef<AnswerKey | null>(null);
@@ -38,23 +45,30 @@ export default function CameraPanel({
   const [handReady, setHandReady] = useState(false);
   const [camEnabled, setCamEnabled] = useState(cameraEnabled);
 
+  // Handle question change / lock change without touching the camera stream
   useEffect(() => {
     lockedRef.current = !!lockedAnswer;
     if (lockedAnswer) {
       candidateRef.current = null;
       dwellStartRef.current = null;
       setDwellPercent(0);
-      onDwellProgress(null, 0);
+      onDwellProgressRef.current(null, 0);
+    } else {
+      // Unlocked for the next question: reset candidate and dwell
+      candidateRef.current = null;
+      dwellStartRef.current = null;
+      setDwellPercent(0);
+      setDetectedAnswer(null);
+      onDwellProgressRef.current(null, 0);
     }
-  }, [lockedAnswer, onDwellProgress]);
+  }, [lockedAnswer]);
 
   const stopCamera = useCallback(() => {
     cancelAnimationFrame(rafRef.current);
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((t) => t.stop());
-      streamRef.current = null;
+    stopCameraStream();
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
     }
-    if (videoRef.current) videoRef.current.srcObject = null;
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext('2d');
       if (ctx) ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -63,32 +77,30 @@ export default function CameraPanel({
     setDetectedAnswer(null);
     setDetectedFingers(null);
     setDwellPercent(0);
-    onDwellProgress(null, 0);
-  }, [onDwellProgress]);
+    onDwellProgressRef.current(null, 0);
+  }, []);
 
   const startCamera = useCallback(async () => {
     if (!camEnabled) return;
     setCamStatus('idle');
+
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          width: { ideal: 640 },
-          height: { ideal: 480 },
-          facingMode: 'user',
-        },
-      });
-      streamRef.current = stream;
+      const stream = await getCameraStream();
+
       if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
+        if (videoRef.current.srcObject !== stream) {
+          videoRef.current.srcObject = stream;
+        }
+        await videoRef.current.play().catch(() => {});
       }
+
       setCamStatus('active');
 
-      // Initialize local offline Hand Landmarker
+      // Initialize local offline Hand Landmarker (cached after first run)
       const ok = await initHandLandmarker();
       setHandReady(ok);
 
-      // Animation detection loop
+      // Animation detection loop (runs continuously across questions)
       function loop() {
         if (!videoRef.current || videoRef.current.readyState < 2) {
           rafRef.current = requestAnimationFrame(loop);
@@ -98,10 +110,12 @@ export default function CameraPanel({
         const video = videoRef.current;
         const canvas = canvasRef.current;
 
-        // Sync canvas resolution with video
-        if (canvas && (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight)) {
-          canvas.width = video.videoWidth || 640;
-          canvas.height = video.videoHeight || 480;
+        // Sync canvas resolution with video dimensions
+        if (canvas && video.videoWidth > 0 && video.videoHeight > 0) {
+          if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+          }
         }
 
         // Run hand detection
@@ -133,11 +147,11 @@ export default function CameraPanel({
               const elapsed = now - dwellStartRef.current;
               const progress = Math.min(1, elapsed / DWELL_DURATION_MS);
               setDwellPercent(progress);
-              onDwellProgress(currentAns, progress);
+              onDwellProgressRef.current(currentAns, progress);
 
               if (progress >= 1 && !lockedRef.current) {
                 lockedRef.current = true;
-                onDwellComplete(currentAns);
+                onDwellCompleteRef.current(currentAns);
                 dwellStartRef.current = null;
                 candidateRef.current = null;
                 setDwellPercent(0);
@@ -147,7 +161,7 @@ export default function CameraPanel({
               candidateRef.current = currentAns;
               dwellStartRef.current = now;
               setDwellPercent(0.05);
-              onDwellProgress(currentAns, 0.05);
+              onDwellProgressRef.current(currentAns, 0.05);
             }
           } else {
             // Hand momentarily lost or blurred - apply grace period
@@ -157,7 +171,7 @@ export default function CameraPanel({
                 candidateRef.current = null;
                 dwellStartRef.current = null;
                 setDwellPercent(0);
-                onDwellProgress(null, 0);
+                onDwellProgressRef.current(null, 0);
               }
             }
           }
@@ -166,20 +180,23 @@ export default function CameraPanel({
         rafRef.current = requestAnimationFrame(loop);
       }
 
+      cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(loop);
     } catch (err: any) {
       console.error('Camera access error:', err);
       if (err.name === 'NotAllowedError') setCamStatus('denied');
       else setCamStatus('error');
     }
-  }, [camEnabled, onDwellProgress, onDwellComplete]);
+  }, [camEnabled]);
 
   useEffect(() => {
-    if (camEnabled) startCamera();
+    if (camEnabled) {
+      startCamera();
+    }
     return () => {
-      stopCamera();
+      cancelAnimationFrame(rafRef.current);
     };
-  }, [camEnabled, startCamera, stopCamera]);
+  }, [camEnabled, startCamera]);
 
   const toggleCam = () => {
     if (camEnabled) {
@@ -193,25 +210,32 @@ export default function CameraPanel({
   return (
     <div className={`ar-camera-container ${lockedAnswer ? 'locked' : ''}`}>
       <div className="camera-view-wrapper">
-        {camEnabled && camStatus === 'active' ? (
-          <>
-            {/* Mirrored video feed */}
-            <video
-              ref={videoRef}
-              autoPlay
-              playsInline
-              muted
-              className="ar-video-feed"
-              style={{ transform: 'scaleX(-1)' }}
-            />
-            {/* Mirrored AR Canvas overlay drawing joints & skeleton */}
-            <canvas
-              ref={canvasRef}
-              className="ar-canvas-overlay"
-              style={{ transform: 'scaleX(-1)' }}
-            />
+        {/* Video element ALWAYS mounted to guarantee ref is never null */}
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          muted
+          className="ar-video-feed"
+          style={{
+            transform: 'scaleX(-1)',
+            display: camEnabled && camStatus === 'active' ? 'block' : 'none',
+          }}
+        />
 
-            {/* In-camera floating AR badge (matches screenshot top-left '⏱ 3s' pill) */}
+        {/* Mirrored AR Canvas overlay drawing joints & skeleton */}
+        <canvas
+          ref={canvasRef}
+          className="ar-canvas-overlay"
+          style={{
+            transform: 'scaleX(-1)',
+            display: camEnabled && camStatus === 'active' ? 'block' : 'none',
+          }}
+        />
+
+        {/* Camera HUD Overlays */}
+        {camEnabled && camStatus === 'active' && (
+          <>
             <div className="camera-ar-hud">
               {detectedAnswer && !lockedAnswer ? (
                 <div className="ar-dwell-pill active">
@@ -236,14 +260,16 @@ export default function CameraPanel({
               )}
             </div>
 
-            {/* Model loading overlay indicator */}
             {!handReady && (
               <div className="ar-model-loader-badge">
                 <span className="spinner-dot" /> Loading Hand Model...
               </div>
             )}
           </>
-        ) : (
+        )}
+
+        {/* Offline / Placeholder state when camera is not active */}
+        {(!camEnabled || camStatus !== 'active') && (
           <div className="camera-offline-placeholder">
             <div className="offline-icon">📷</div>
             <p className="offline-title">

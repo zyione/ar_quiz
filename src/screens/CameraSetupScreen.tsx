@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useQuiz } from '../context/QuizContext';
 import { initHandLandmarker, detectFingers } from '../lib/handGesture';
 import { drawHandSkeleton } from '../lib/arDrawing';
+import { getCameraStream, stopCameraStream } from '../lib/cameraStream';
 import type { GestureAnswer } from '../types';
 
 const FINGER_LABELS: Record<string, string> = {
@@ -15,7 +16,6 @@ export default function CameraSetupScreen() {
   const { setScreen, dispatch } = useQuiz();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
   const rafRef = useRef<number>(0);
 
   const [camStatus, setCamStatus] = useState<'idle' | 'requesting' | 'active' | 'denied' | 'error'>('idle');
@@ -26,10 +26,7 @@ export default function CameraSetupScreen() {
 
   const stopCamera = useCallback(() => {
     cancelAnimationFrame(rafRef.current);
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((t) => t.stop());
-      streamRef.current = null;
-    }
+    stopCameraStream();
     if (videoRef.current) videoRef.current.srcObject = null;
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext('2d');
@@ -39,84 +36,94 @@ export default function CameraSetupScreen() {
     setDetectedAnswer(null);
     setFingerCount(null);
     setHandReady(false);
+    setTesting(false);
   }, []);
 
   const startCamera = useCallback(async () => {
     setCamStatus('requesting');
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' },
-      });
-      streamRef.current = stream;
+      const stream = await getCameraStream();
+
       if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
+        if (videoRef.current.srcObject !== stream) {
+          videoRef.current.srcObject = stream;
+        }
+        await videoRef.current.play().catch(() => {});
       }
+
       setCamStatus('active');
+
+      // Auto-start hand tracking model on setup screen
+      const ok = await initHandLandmarker();
+      setHandReady(ok);
+      setTesting(true);
+
+      let lastAnswer: GestureAnswer = null;
+      let stableCount = 0;
+
+      function loop() {
+        if (!videoRef.current || !ok) {
+          rafRef.current = requestAnimationFrame(loop);
+          return;
+        }
+        const video = videoRef.current;
+        const canvas = canvasRef.current;
+
+        if (canvas && video.videoWidth > 0 && video.videoHeight > 0) {
+          if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+          }
+        }
+
+        const result = detectFingers(video);
+
+        if (canvas) {
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            if (result.landmarks && result.landmarks.length > 0) {
+              drawHandSkeleton(ctx, result.landmarks, canvas.width, canvas.height, !!result.answer);
+            } else {
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+          }
+        }
+
+        if (result.answer === lastAnswer) {
+          stableCount++;
+        } else {
+          lastAnswer = result.answer;
+          stableCount = 0;
+        }
+
+        if (stableCount >= 4) {
+          setDetectedAnswer(result.answer);
+          setFingerCount(result.fingerCount);
+        }
+
+        rafRef.current = requestAnimationFrame(loop);
+      }
+
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(loop);
     } catch (err: any) {
+      console.error('Setup camera error:', err);
       if (err.name === 'NotAllowedError') setCamStatus('denied');
       else setCamStatus('error');
     }
   }, []);
 
-  const startTesting = useCallback(async () => {
-    if (camStatus !== 'active') return;
-    setTesting(true);
-    const ok = await initHandLandmarker();
-    setHandReady(ok);
-
-    let lastAnswer: GestureAnswer = null;
-    let stableCount = 0;
-
-    function loop() {
-      if (!videoRef.current || !ok) {
-        rafRef.current = requestAnimationFrame(loop);
-        return;
-      }
-      const video = videoRef.current;
-      const canvas = canvasRef.current;
-
-      if (canvas && (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight)) {
-        canvas.width = video.videoWidth || 640;
-        canvas.height = video.videoHeight || 480;
-      }
-
-      const result = detectFingers(video);
-
-      if (canvas) {
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          if (result.landmarks && result.landmarks.length > 0) {
-            drawHandSkeleton(ctx, result.landmarks, canvas.width, canvas.height, !!result.answer);
-          } else {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-          }
-        }
-      }
-
-      if (result.answer === lastAnswer) {
-        stableCount++;
-      } else {
-        lastAnswer = result.answer;
-        stableCount = 0;
-      }
-      if (stableCount >= 6) {
-        setDetectedAnswer(result.answer);
-        setFingerCount(result.fingerCount);
-      }
-      rafRef.current = requestAnimationFrame(loop);
-    }
-    rafRef.current = requestAnimationFrame(loop);
-  }, [camStatus]);
-
+  // Auto-start camera when setup screen mounts
   useEffect(() => {
+    startCamera();
     return () => {
-      stopCamera();
+      cancelAnimationFrame(rafRef.current);
     };
-  }, [stopCamera]);
+  }, [startCamera]);
 
   const handleContinue = () => {
-    stopCamera();
+    // Keep camera stream alive so QuizScreen starts seamlessly!
+    cancelAnimationFrame(rafRef.current);
     setScreen('quiz');
   };
 
@@ -133,31 +140,36 @@ export default function CameraSetupScreen() {
         </button>
         <h1 className="setup-title">📷 Camera Setup</h1>
         <p className="setup-subtitle">
-          Set up your camera for hand gesture recognition. You can skip this and answer manually.
+          Position your webcam so your hand is visible. Hold up fingers to test gestures.
         </p>
       </div>
 
       <div className="setup-content">
-        {/* Camera Preview */}
+        {/* Camera Preview Panel */}
         <div className="camera-panel">
           <div className={`camera-frame ${camStatus === 'active' ? 'active' : ''} ${detectedAnswer ? 'gesture-detected' : ''}`}>
-            {camStatus === 'active' ? (
-              <>
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  playsInline
-                  muted
-                  className="camera-video"
-                  style={{ transform: 'scaleX(-1)' }}
-                />
-                <canvas
-                  ref={canvasRef}
-                  className="ar-canvas-overlay"
-                  style={{ transform: 'scaleX(-1)' }}
-                />
-              </>
-            ) : (
+            {/* Video element ALWAYS mounted to guarantee ref is never null */}
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              className="camera-video"
+              style={{
+                transform: 'scaleX(-1)',
+                display: camStatus === 'active' ? 'block' : 'none',
+              }}
+            />
+            <canvas
+              ref={canvasRef}
+              className="ar-canvas-overlay"
+              style={{
+                transform: 'scaleX(-1)',
+                display: camStatus === 'active' ? 'block' : 'none',
+              }}
+            />
+
+            {camStatus !== 'active' && (
               <div className="camera-placeholder">
                 {camStatus === 'requesting' && <div className="camera-spinner">⏳ Requesting camera…</div>}
                 {camStatus === 'denied' && (
@@ -174,7 +186,7 @@ export default function CameraSetupScreen() {
                     <p className="error-hint">Check that no other app is using your camera.</p>
                   </div>
                 )}
-                {(camStatus === 'idle') && (
+                {camStatus === 'idle' && (
                   <div className="camera-idle">
                     <div className="camera-idle-icon">📷</div>
                     <p>Camera not started</p>
@@ -184,12 +196,12 @@ export default function CameraSetupScreen() {
             )}
 
             {/* Gesture overlay */}
-            {camStatus === 'active' && testing && (
+            {camStatus === 'active' && (
               <div className="gesture-overlay">
                 <div className={`gesture-badge ${detectedAnswer ? 'answer-' + detectedAnswer : ''}`}>
                   {detectedAnswer
                     ? `✅ ${FINGER_LABELS[detectedAnswer]}`
-                    : fingerCount !== null
+                    : fingerCount !== null && fingerCount > 0
                     ? `Fingers: ${fingerCount}`
                     : '👋 Show your hand'}
                 </div>
@@ -199,14 +211,9 @@ export default function CameraSetupScreen() {
 
           {/* Camera Controls */}
           <div className="camera-controls">
-            {camStatus === 'idle' && (
+            {camStatus !== 'active' && (
               <button id="start-camera-btn" className="btn btn-primary" onClick={startCamera}>
                 📷 Start Camera
-              </button>
-            )}
-            {camStatus === 'active' && !testing && (
-              <button id="test-gesture-btn" className="btn btn-primary" onClick={startTesting}>
-                🖐️ Test Gestures
               </button>
             )}
             {camStatus === 'active' && (
@@ -244,14 +251,19 @@ export default function CameraSetupScreen() {
             <h3>Tips for Best Results</h3>
             <ul>
               <li>✅ Ensure good lighting on your hand</li>
-              <li>✅ Keep your hand in the centre of the frame</li>
+              <li>✅ Keep your hand in the center of the frame</li>
               <li>✅ Hold fingers clearly spread apart</li>
               <li>✅ Keep your background relatively plain</li>
             </ul>
           </div>
 
           <div className="setup-actions">
-            <button id="continue-with-camera-btn" className="btn btn-primary" onClick={handleContinue} disabled={camStatus !== 'active'}>
+            <button
+              id="continue-with-camera-btn"
+              className="btn btn-primary"
+              onClick={handleContinue}
+              disabled={camStatus !== 'active'}
+            >
               ✅ Continue with Camera
             </button>
             <button id="skip-camera-btn" className="btn btn-secondary" onClick={handleSkip}>
