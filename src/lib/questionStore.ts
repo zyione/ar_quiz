@@ -119,7 +119,156 @@ export const ENGLISH_GRAMMAR_PACK: Question[] = [
   },
 ];
 
+export const MINECRAFT_PACK: Question[] = [
+  {
+    id: 1,
+    category: 'Minecraft Trivia',
+    difficulty: 'Beginner',
+    question: 'What tool is required to mine Diamond Ore and collect diamonds?',
+    options: {
+      A: 'Wooden Pickaxe',
+      B: 'Stone Pickaxe',
+      C: 'Iron Pickaxe',
+      D: 'Golden Pickaxe',
+    },
+    correctAnswer: 'C',
+    explanation: 'You need an Iron Pickaxe (or Diamond/Netherite) to mine Diamond Ore. Stone or Wood will destroy the block!',
+  },
+  {
+    id: 2,
+    category: 'Minecraft Trivia',
+    difficulty: 'Beginner',
+    question: 'Which hostile mob hisses and explodes when it gets near you?',
+    options: {
+      A: 'Zombie',
+      B: 'Skeleton',
+      C: 'Creeper',
+      D: 'Enderman',
+    },
+    correctAnswer: 'C',
+    explanation: 'Creepers silently approach players and hiss for about 1.5 seconds before exploding.',
+  },
+  {
+    id: 3,
+    category: 'Minecraft Trivia',
+    difficulty: 'Beginner',
+    question: 'What blocks do you need to construct a Nether Portal frame?',
+    options: {
+      A: 'Bedrock',
+      B: 'Obsidian',
+      C: 'Crying Obsidian',
+      D: 'Blackstone',
+    },
+    correctAnswer: 'B',
+    explanation: 'A Nether Portal is made using a minimum of 10 blocks of Obsidian and ignited with Flint and Steel.',
+  },
+  {
+    id: 4,
+    category: 'Minecraft Trivia',
+    difficulty: 'Intermediate',
+    question: 'What happens if you try to sleep in a Bed in the Nether or the End?',
+    options: {
+      A: 'You skip to daytime',
+      B: 'The bed explodes violently',
+      C: 'You get teleported back to spawn',
+      D: 'You take poison damage',
+    },
+    correctAnswer: 'B',
+    explanation: 'Beds explode with huge destructive power when used in any dimension other than the Overworld!',
+  },
+  {
+    id: 5,
+    category: 'Minecraft Trivia',
+    difficulty: 'Beginner',
+    question: 'What item do you feed to Cows and Sheep to breed them?',
+    options: {
+      A: 'Carrots',
+      B: 'Wheat',
+      C: 'Apples',
+      D: 'Seeds',
+    },
+    correctAnswer: 'B',
+    explanation: 'Feeding Wheat to two cows or sheep makes them enter love mode and produce a baby.',
+  },
+  {
+    id: 6,
+    category: 'Minecraft Trivia',
+    difficulty: 'Intermediate',
+    question: 'Which item dropped by Endermen is combined with Blaze Powder to find Strongholds?',
+    options: {
+      A: 'Ender Pearl',
+      B: 'Eye of Ender',
+      C: 'End Stone',
+      D: 'Echo Shard',
+    },
+    correctAnswer: 'A',
+    explanation: 'Endermen drop Ender Pearls, which craft Eyes of Ender when combined with Blaze Powder.',
+  },
+  {
+    id: 7,
+    category: 'Minecraft Trivia',
+    difficulty: 'Intermediate',
+    question: 'Which of these mobs does NOT burn in direct sunlight?',
+    options: {
+      A: 'Zombie',
+      B: 'Skeleton',
+      C: 'Phantom',
+      D: 'Creeper',
+    },
+    correctAnswer: 'D',
+    explanation: 'Creepers and Spiders are immune to daylight burning, whereas Zombies, Skeletons, and Phantoms burn.',
+  },
+  {
+    id: 8,
+    category: 'Minecraft Trivia',
+    difficulty: 'Advanced',
+    question: 'What is the ancient material found deep in the Nether used to upgrade Diamond gear to Netherite?',
+    options: {
+      A: 'Nether Quartz',
+      B: 'Nether Gold Ore',
+      C: 'Ancient Debris',
+      D: 'Magma Block',
+    },
+    correctAnswer: 'C',
+    explanation: 'Ancient Debris is smelted into Netherite Scraps, which are crafted with Gold into Netherite Ingots.',
+  },
+  {
+    id: 9,
+    category: 'Minecraft Trivia',
+    difficulty: 'Beginner',
+    question: 'What is the final boss mob found on the main island in the End dimension?',
+    options: {
+      A: 'The Wither',
+      B: 'The Warden',
+      C: 'The Ender Dragon',
+      D: 'The Elder Guardian',
+    },
+    correctAnswer: 'C',
+    explanation: 'The Ender Dragon is the legendary final boss residing in the End dimension.',
+  },
+  {
+    id: 10,
+    category: 'Minecraft Trivia',
+    difficulty: 'Intermediate',
+    question: 'How many Obsidian blocks are required for the minimum frame of a Nether Portal?',
+    options: {
+      A: '8',
+      B: '10',
+      C: '12',
+      D: '14',
+    },
+    correctAnswer: 'B',
+    explanation: 'A 4x5 portal without the four corner blocks requires exactly 10 Obsidian blocks.',
+  },
+];
+
 export const PRESET_PACKS: { name: string; id: string; description: string; getQuestions: () => Question[] }[] = [
+  {
+    id: 'minecraft',
+    name: '⛏️ Minecraft Trivia (Fun)',
+    description: 'Basic fun trivia about tools, mobs, portals, and dimensions.',
+    getQuestions: () => MINECRAFT_PACK,
+  },
   {
     id: 'english-grammar',
     name: '📚 English Grammar (Demo)',
@@ -135,7 +284,7 @@ export const PRESET_PACKS: { name: string; id: string; description: string; getQ
 ];
 
 export async function loadInitialQuestions(): Promise<{ packId: string; questions: Question[] }> {
-  const savedPack = localStorage.getItem(PACK_KEY) || 'english-grammar';
+  const savedPack = localStorage.getItem(PACK_KEY) || 'minecraft';
   const savedCustom = localStorage.getItem(STORAGE_KEY);
 
   if (savedCustom) {

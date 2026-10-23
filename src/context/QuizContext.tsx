@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
 import type { QuizState, AppScreen, AnswerKey, UserAnswer, Question } from '../types';
-import { loadInitialQuestions, saveCustomQuestions, ENGLISH_GRAMMAR_PACK } from '../lib/questionStore';
+import { loadInitialQuestions, saveCustomQuestions, MINECRAFT_PACK } from '../lib/questionStore';
 
 export interface ExtendedQuizState extends QuizState {
   questions: Question[];
@@ -11,8 +11,8 @@ export interface ExtendedQuizState extends QuizState {
 }
 
 const INITIAL_STATE: ExtendedQuizState = {
-  questions: ENGLISH_GRAMMAR_PACK,
-  activePackId: 'english-grammar',
+  questions: MINECRAFT_PACK,
+  activePackId: 'minecraft',
   currentQuestionIndex: 0,
   score: 0,
   userAnswers: [],
