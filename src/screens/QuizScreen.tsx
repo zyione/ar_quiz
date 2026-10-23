@@ -36,6 +36,7 @@ export default function QuizScreen() {
   const currentQuestion = questions[currentQuestionIndex] || questions[0];
   const totalQuestions = questions.length;
   const [isFullscreen, setIsFullscreen] = React.useState(false);
+  const [showControlsGuide, setShowControlsGuide] = React.useState(true);
 
   useEffect(() => {
     const handleFs = () => setIsFullscreen(!!document.fullscreenElement);
@@ -139,6 +140,14 @@ export default function QuizScreen() {
         <div className="hud-right">
           <div className="hud-badge score-badge">SCORE: {score}</div>
           <button
+            className={`hud-icon-btn ${showControlsGuide ? 'active-hud-btn' : ''}`}
+            onClick={() => setShowControlsGuide((prev) => !prev)}
+            title="Toggle Controls Guide Bar"
+            aria-label="Toggle controls guide"
+          >
+            🎮 Guide
+          </button>
+          <button
             className="hud-icon-btn"
             onClick={toggleSound}
             title={soundEnabled ? 'Mute Sounds' : 'Unmute Sounds'}
@@ -223,6 +232,68 @@ export default function QuizScreen() {
           )}
         </section>
       </main>
+
+      {/* Non-obtrusive Persistent Controls Guide Bar */}
+      {showControlsGuide ? (
+        <aside className="ar-quiz-controls-bar" aria-label="Controls Guide">
+          <div className="controls-bar-inner">
+            <div className="controls-group gestures-group">
+              <span className="controls-group-label">✋ GESTURES:</span>
+              <div className="controls-chips">
+                <span className={`ctrl-chip ${candidateAnswer === 'A' ? 'active-gesture' : ''}`} title="1 Finger = Option A">
+                  <span className="chip-emoji">☝️</span>
+                  <span className="chip-name"><strong>1</strong> A</span>
+                </span>
+                <span className={`ctrl-chip ${candidateAnswer === 'B' ? 'active-gesture' : ''}`} title="2 Fingers = Option B">
+                  <span className="chip-emoji">✌️</span>
+                  <span className="chip-name"><strong>2</strong> B</span>
+                </span>
+                <span className={`ctrl-chip ${candidateAnswer === 'C' ? 'active-gesture' : ''}`} title="3 Fingers = Option C">
+                  <span className="chip-emoji">🤟</span>
+                  <span className="chip-name"><strong>3</strong> C</span>
+                </span>
+                <span className={`ctrl-chip ${candidateAnswer === 'D' ? 'active-gesture' : ''}`} title="4 Fingers = Option D">
+                  <span className="chip-emoji">🖖</span>
+                  <span className="chip-name"><strong>4</strong> D</span>
+                </span>
+                <span className={`ctrl-chip advance-chip ${isAnswerLocked ? 'advance-highlight' : ''}`} title="5 Fingers or Fist = Next Question">
+                  <span className="chip-emoji">🖐️/✊</span>
+                  <span className="chip-name"><strong>5 / Fist</strong> Next</span>
+                </span>
+              </div>
+            </div>
+
+            <div className="controls-bar-sep" />
+
+            <div className="controls-group keys-group">
+              <span className="controls-group-label">⌨️ KEYS:</span>
+              <div className="controls-chips">
+                <span className="ctrl-key-item"><kbd>1-4</kbd> / <kbd>A-D</kbd> Select</span>
+                <span className="ctrl-key-item"><kbd>Enter</kbd> Confirm / Next</span>
+                <span className="ctrl-key-item"><kbd>R</kbd> Random</span>
+                <span className="ctrl-key-item"><kbd>F</kbd> Fullscreen</span>
+              </div>
+            </div>
+
+            <button
+              className="controls-bar-close-btn"
+              onClick={() => setShowControlsGuide(false)}
+              title="Minimize Controls Guide"
+              aria-label="Minimize controls guide"
+            >
+              ✕
+            </button>
+          </div>
+        </aside>
+      ) : (
+        <button
+          className="ar-controls-min-pill"
+          onClick={() => setShowControlsGuide(true)}
+          title="Show Controls Guide"
+        >
+          🎮 Controls Guide ▴
+        </button>
+      )}
 
       {/* In-App Question Editor & Pack Switcher Modal */}
       <QuestionEditorModal />

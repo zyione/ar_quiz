@@ -13,6 +13,12 @@ interface Props {
 }
 
 const OPTION_KEYS: AnswerKey[] = ['A', 'B', 'C', 'D'];
+const OPTION_GESTURES: Record<AnswerKey, string> = {
+  A: '☝️ 1',
+  B: '✌️ 2',
+  C: '🤟 3',
+  D: '🖖 4',
+};
 
 export default function QuestionCard({
   question,
@@ -125,6 +131,14 @@ export default function QuestionCard({
               <div className="ar-option-content">
                 <span className="option-title">{optionText}</span>
               </div>
+
+              {/* Subtle non-obtrusive control tag */}
+              {!isLocked && (
+                <div className="ar-option-control-tag" title={`Show ${OPTION_GESTURES[key]} or press key '${key}'`}>
+                  <span className="tag-gesture">{OPTION_GESTURES[key]}</span>
+                  <span className="tag-key"><kbd>{key}</kbd></span>
+                </div>
+              )}
 
               {/* Lock status or indicators */}
               {isLocked && isCorrect && (
