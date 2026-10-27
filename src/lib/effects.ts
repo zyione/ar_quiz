@@ -5,6 +5,7 @@ export function triggerConfetti() {
   const defaults = {
     origin: { y: 0.6 },
     zIndex: 9999,
+    disableForReducedMotion: true,
   };
 
   function fire(particleRatio: number, opts: confetti.Options) {
@@ -15,28 +16,30 @@ export function triggerConfetti() {
     });
   }
 
-  fire(0.25, { spread: 26, startVelocity: 55, colors: ['#FFD700', '#FFA500', '#FF6347'] });
-  fire(0.2, { spread: 60, colors: ['#6C63FF', '#3D8EF0', '#00D4AA'] });
-  fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8, colors: ['#FFD700', '#ffffff', '#6C63FF'] });
-  fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-  fire(0.1, { spread: 120, startVelocity: 45, colors: ['#FFD700', '#6C63FF'] });
+  fire(0.25, { spread: 26, startVelocity: 55, colors: ['#d7b775', '#c69c5d', '#bb8770'] });
+  fire(0.2, { spread: 60, colors: ['#ad8d52', '#b59760', '#9cb78b'] });
+  fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8, colors: ['#d7b775', '#ffffff', '#ad8d52'] });
+  fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2, colors: ['#d7b775', '#f1e8d5', '#9cb78b'] });
+  fire(0.1, { spread: 120, startVelocity: 45, colors: ['#d7b775', '#ad8d52'] });
 }
 
 export function triggerSideConfetti() {
   confetti({
+    disableForReducedMotion: true,
     particleCount: 80,
     angle: 60,
     spread: 55,
     origin: { x: 0 },
-    colors: ['#FFD700', '#6C63FF', '#00D4AA', '#FF6347'],
+    colors: ['#d7b775', '#ad8d52', '#9cb78b', '#bb8770'],
     zIndex: 9999,
   });
   confetti({
+    disableForReducedMotion: true,
     particleCount: 80,
     angle: 120,
     spread: 55,
     origin: { x: 1 },
-    colors: ['#FFD700', '#6C63FF', '#00D4AA', '#FF6347'],
+    colors: ['#d7b775', '#ad8d52', '#9cb78b', '#bb8770'],
     zIndex: 9999,
   });
 }

@@ -18,10 +18,10 @@ const LEVEL_ICONS: Record<string, string> = {
 };
 
 const LEVEL_COLORS: Record<string, string> = {
-  'AI Literacy Champion': '#FFD700',
-  'AI-Savvy Professional': '#C0C0C0',
-  'AI Learner': '#CD7F32',
-  'AI Explorer': '#6C63FF',
+  'AI Literacy Champion': '#d7b775',
+  'AI-Savvy Professional': '#bec4b4',
+  'AI Learner': '#c5946b',
+  'AI Explorer': '#ad8d52',
 };
 
 export default function ResultsScreen() {
@@ -112,7 +112,7 @@ export default function ResultsScreen() {
         <div className="category-breakdown">
           {stats.map((s) => {
             const pct = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
-            const color = pct >= 80 ? '#00c896' : pct >= 60 ? '#f59e0b' : '#ef4444';
+            const color = pct >= 80 ? '#7fa58a' : pct >= 60 ? '#cfac6f' : '#bd796b';
             return (
               <div key={s.category} className="breakdown-row">
                 <div className="breakdown-name">{s.category}</div>

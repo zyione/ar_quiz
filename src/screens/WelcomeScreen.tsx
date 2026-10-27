@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuiz } from '../context/QuizContext';
 import QuestionEditorModal from '../components/QuestionEditorModal';
+import AcademySeal from '../components/AcademySeal';
 
 const GESTURE_MAP = [
   { fingers: '☝️', label: '1 Finger', answer: 'A', action: 'Answer A' },
@@ -20,6 +21,7 @@ export default function WelcomeScreen() {
     <div className="welcome-screen">
       {/* Hero */}
       <div className="welcome-hero">
+        <AcademySeal className="hero-seal" />
         <div className="hero-badge">✨ AR VISION QUIZ</div>
         <h1 className="hero-title">
           Interactive AR Quiz.<br />

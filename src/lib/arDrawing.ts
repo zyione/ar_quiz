@@ -39,8 +39,8 @@ export function drawHandSkeleton(
   ctx.lineJoin = 'round';
 
   // Outer glow pass
-  const glowColor = isFist ? '#10b981' : isDetectingActive ? '#38bdf8' : '#00e5ff';
-  const strokeGlow = isFist ? 'rgba(16, 185, 129, 0.85)' : isDetectingActive ? 'rgba(56, 189, 248, 0.75)' : 'rgba(0, 229, 255, 0.6)';
+  const glowColor = isFist ? '#b5cda0' : isDetectingActive ? '#d2b579' : '#c5a46a';
+  const strokeGlow = isFist ? 'rgba(181, 205, 160, 0.85)' : isDetectingActive ? 'rgba(210, 181, 121, 0.75)' : 'rgba(197, 164, 106, 0.6)';
 
   ctx.shadowBlur = isFist ? 18 : isDetectingActive ? 14 : 8;
   ctx.shadowColor = glowColor;
@@ -58,7 +58,7 @@ export function drawHandSkeleton(
 
   // Core bright neon line pass
   ctx.shadowBlur = 0;
-  ctx.strokeStyle = '#ffffff';
+  ctx.strokeStyle = '#fff4d8';
   ctx.lineWidth = 2;
 
   ctx.beginPath();
@@ -83,32 +83,32 @@ export function drawHandSkeleton(
     if (isExtendedTip) {
       // Extended fingertip with pulsating neon halo
       ctx.shadowBlur = 16;
-      ctx.shadowColor = '#00f0ff';
+      ctx.shadowColor = '#ddc48d';
 
       // Outer ring
       ctx.beginPath();
       ctx.arc(x, y, 9, 0, 2 * Math.PI);
-      ctx.fillStyle = 'rgba(0, 240, 255, 0.35)';
+      ctx.fillStyle = 'rgba(221, 196, 141, 0.35)';
       ctx.fill();
 
       // Middle ring
       ctx.beginPath();
       ctx.arc(x, y, 6, 0, 2 * Math.PI);
-      ctx.fillStyle = '#00f0ff';
+      ctx.fillStyle = '#ddc48d';
       ctx.fill();
 
       // Core white center
       ctx.beginPath();
       ctx.arc(x, y, 3, 0, 2 * Math.PI);
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = '#fff4d8';
       ctx.fill();
     } else {
       // Normal joint
       ctx.shadowBlur = 6;
-      ctx.shadowColor = '#38bdf8';
+      ctx.shadowColor = '#d2b579';
       ctx.beginPath();
       ctx.arc(x, y, isTip ? 4 : 3, 0, 2 * Math.PI);
-      ctx.fillStyle = isTip ? '#67e8f9' : 'rgba(255, 255, 255, 0.9)';
+      ctx.fillStyle = isTip ? '#e9d7af' : 'rgba(255, 255, 255, 0.9)';
       ctx.fill();
     }
     ctx.restore();
